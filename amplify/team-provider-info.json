@@ -14,6 +14,12 @@
     "categories": {
       "api": {
         "g2g": {}
+      },
+      "hosting": {
+        "amplifyhosting": {
+          "appId": "dfgtjw67rhr7y",
+          "type": "cicd"
+        }
       }
     }
   }
