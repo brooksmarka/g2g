@@ -48,7 +48,6 @@ const App = () => {
       console.log('error creating zone:', err);
     }
   }
-
   return (
     <div style={styles.container}>
 
