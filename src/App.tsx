@@ -11,11 +11,7 @@ import ZoneCard from './components/ZoneCard';
 const initialState: CreateZoneInput = { id: '', title: '' };
 const client = generateClient();
 
-interface AppProps{
-  zoneInterface: Zone[];
-}
-
-const App: React.FC<AppProps> = () => {
+const App = () => {
   const [formState, setFormState] = useState<CreateZoneInput>(initialState);
   const [zones, setZones] = useState<Zone[] | CreateZoneInput[]>([]);
 
@@ -56,7 +52,7 @@ const App: React.FC<AppProps> = () => {
   return (
     <div style={styles.container}>
 
-<header style={styles.header}>Zones</header>
+    <header style={styles.header}>Zones</header>
       {zones.map((zone, index) => (
         <ZoneCard key={zone.id ? zone.id : index} zone={zone}/>
       ))}
@@ -94,15 +90,6 @@ const styles = {
     justifyContent: "center",
     padding: 20,
   },
-
-  // container: {
-  //   display: 'flex',     // This will turn your container into a flex container
-  //   flexDirection: 'row', // This ensures that the children (zones) are laid out in a row
-  //   justifyContent: 'space-between', // This spreads out the children with space between them
-  //   alignItems: 'center', // This centers the children vertically
-  //   flexWrap: 'wrap',    // This allows items to wrap onto multiple lines if needed
-  // },
-
   input: {
     border: "none",
     backgroundColor: "black",
