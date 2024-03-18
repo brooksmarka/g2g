@@ -1,0 +1,20 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-g2g-dev-184433-authRole",
+      "UnauthRoleArn": "arn:aws:iam::990236241346:role/amplify-g2g-dev-184433-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::990236241346:role/amplify-g2g-dev-184433-authRole",
+      "Region": "us-west-2",
+      "DeploymentBucketName": "amplify-g2g-dev-184433-deployment",
+      "UnauthRoleName": "amplify-g2g-dev-184433-unauthRole",
+      "StackName": "amplify-g2g-dev-184433",
+      "StackId": "arn:aws:cloudformation:us-west-2:990236241346:stack/amplify-g2g-dev-184433/b128d100-e4c0-11ee-9198-0282377e190d",
+      "AmplifyAppId": "dfgtjw67rhr7y"
+    },
+    "categories": {
+      "api": {
+        "g2g": {}
+      }
+    }
+  }
+}
