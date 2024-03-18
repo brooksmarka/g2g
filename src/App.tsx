@@ -1,16 +1,128 @@
-import { useEffect, useState } from 'react'
-import './App.css'
+import { useEffect, useState } from 'react';
 
-function App() {
-  //const [count, setCount] = useState(0)
+import { generateClient } from 'aws-amplify/api';
 
-  return (
-    <>
-      <h1>Welcome to g2g</h1>
-      <h3>A way to share a status of trails in the Denver area so you know when something is g2g (good to go)</h3>
-      <h3>Please check back soon for updates</h3>
-    </>
-  )
+import { createZone } from './graphql/mutations';
+import { listZones } from './graphql/queries';
+import { type CreateZoneInput, type Zone } from './API';
+
+import ZoneCard from './components/ZoneCard';
+
+const initialState: CreateZoneInput = { id: '', title: '' };
+const client = generateClient();
+
+interface AppProps{
+  zoneInterface: Zone[];
 }
 
-export default App
+const App: React.FC<AppProps> = () => {
+  const [formState, setFormState] = useState<CreateZoneInput>(initialState);
+  const [zones, setZones] = useState<Zone[] | CreateZoneInput[]>([]);
+
+  useEffect(() => {
+    fetchZones();
+  }, []);
+
+  async function fetchZones() {
+    try {
+      const zoneData = await client.graphql({
+        query: listZones,
+      });
+      const zones = zoneData.data.listZones.items;
+      setZones(zones);
+    } catch (err) {
+      console.log('error fetching zones');
+    }
+  }
+
+  async function addZone() {
+    try {
+      if (!formState.id || !formState.title) return;
+      const zone = { ...formState };
+      setZones([...zones, zone]);
+      setFormState(initialState);
+      const data = await client.graphql({
+        query: createZone,
+        variables: {
+          input: zone,
+        },
+      });
+      console.log("data", data)
+    } catch (err) {
+      console.log('error creating zone:', err);
+    }
+  }
+
+  return (
+    <div style={styles.container}>
+
+<header style={styles.header}>Zones</header>
+      {zones.map((zone, index) => (
+        <ZoneCard key={zone.id ? zone.id : index} zone={zone}/>
+      ))}
+      <h2>Create a zone</h2>
+      <input
+        onChange={(event) =>
+          setFormState({ ...formState, title: event.target.value })
+        }
+        style={styles.input}
+        value={formState.title as string}
+        placeholder="title"
+      />
+      <input
+        onChange={(event) =>
+          setFormState({ ...formState, id: event.target.value })
+        }
+        style={styles.input}
+        value={formState.id || ''}
+        placeholder="id"
+      />
+      <button style={styles.button} onClick={addZone}>
+        Create Zone
+      </button>
+     
+    </div>
+  );
+};
+
+const styles = {
+  container: {
+    width: 400,
+    margin: "0 auto",
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center",
+    padding: 20,
+  },
+
+  // container: {
+  //   display: 'flex',     // This will turn your container into a flex container
+  //   flexDirection: 'row', // This ensures that the children (zones) are laid out in a row
+  //   justifyContent: 'space-between', // This spreads out the children with space between them
+  //   alignItems: 'center', // This centers the children vertically
+  //   flexWrap: 'wrap',    // This allows items to wrap onto multiple lines if needed
+  // },
+
+  input: {
+    border: "none",
+    backgroundColor: "black",
+    marginBottom: 10,
+    padding: 8,
+    fontSize: 18,
+  },
+  zonetitle: { fontSize: 20, fontWeight: "bold" },
+  zoneid: { marginBottom: 0 },
+  button: {
+    backgroundColor: "#3c5c47",
+    color: "white",
+    outline: "none",
+    fontSize: 18,
+    padding: "12px 0px",
+  },
+  header: {
+    paddingTop: '30px',
+    fontSize: 30,
+  },
+} as const;
+
+export default App;
