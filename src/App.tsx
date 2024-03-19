@@ -20,6 +20,7 @@ const initialState: CreateZoneInput = { id: '', title: '' };
 const client = generateClient();
 
 export function App({signOut}: WithAuthenticatorProps) {
+
   const [formState, setFormState] = useState<CreateZoneInput>(initialState);
   const [zones, setZones] = useState<Zone[] | CreateZoneInput[]>([]);
 
