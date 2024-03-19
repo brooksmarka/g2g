@@ -7,20 +7,21 @@ import './App.css';
 
 import { generateClient } from 'aws-amplify/api';
 import { Amplify } from 'aws-amplify';
-import type { WithAuthenticatorProps } from '@aws-amplify/ui-react';
-import { withAuthenticator } from '@aws-amplify/ui-react';
+import { Authenticator } from '@aws-amplify/ui-react';
+
 import '@aws-amplify/ui-react/styles.css';
 
 import ZoneCard from './components/ZoneCard';
 
 import config from './amplifyconfiguration.json';
+import authComponents from './components/authComponents';
+
 Amplify.configure(config);
 
 const initialState: CreateZoneInput = { id: '', title: '' };
 const client = generateClient();
 
-export function App({signOut}: WithAuthenticatorProps) {
-
+export default function App() {
   const [formState, setFormState] = useState<CreateZoneInput>(initialState);
   const [zones, setZones] = useState<Zone[] | CreateZoneInput[]>([]);
 
@@ -58,34 +59,37 @@ export function App({signOut}: WithAuthenticatorProps) {
     }
   }
   return (
-    <div style={styles.container}>
-      
-    <header style={styles.header}>Zones</header>
-      {zones.map((zone, index) => (
-        <ZoneCard key={zone.id ? zone.id : index} zone={zone}/>
-      ))}
-      <h2>Create a zone</h2>
-      <input
-        onChange={(event) =>
-          setFormState({ ...formState, title: event.target.value })
-        }
-        style={styles.input}
-        value={formState.title as string}
-        placeholder="title"
-      />
-      <input
-        onChange={(event) =>
-          setFormState({ ...formState, id: event.target.value })
-        }
-        style={styles.input}
-        value={formState.id || ''}
-        placeholder="id"
-      />
-      <button style={styles.button} onClick={addZone}>
-        Create Zone
-      </button>
-      <button style={styles.signOut} onClick={signOut}>Sign out</button>
-    </div>
+    <Authenticator components={authComponents}>
+      {({ signOut }) => (
+        <div style={styles.container}>
+        <header style={styles.header}>Zones</header>
+          {zones.map((zone, index) => (
+            <ZoneCard key={zone.id ? zone.id : index} zone={zone}/>
+          ))}
+          <h2>Create a zone</h2>
+          <input
+            onChange={(event) =>
+              setFormState({ ...formState, title: event.target.value })
+            }
+            style={styles.input}
+            value={formState.title as string}
+            placeholder="title"
+          />
+          <input
+            onChange={(event) =>
+              setFormState({ ...formState, id: event.target.value })
+            }
+            style={styles.input}
+            value={formState.id || ''}
+            placeholder="id"
+          />
+          <button style={styles.button} onClick={addZone}>
+            Create Zone
+          </button>
+          <button style={styles.signOut} onClick={signOut}>Sign out</button>
+        </div>
+      )}
+    </Authenticator>
   );
 };
 
@@ -122,5 +126,3 @@ const styles = {
     fontSize: 30,
   },
 } as const;
-
-export default withAuthenticator(App);
