@@ -1,17 +1,25 @@
 import { useEffect, useState } from 'react';
 
-import { generateClient } from 'aws-amplify/api';
-
 import { createZone } from './graphql/mutations';
 import { listZones } from './graphql/queries';
 import { type CreateZoneInput, type Zone } from './API';
+import './App.css';
+
+import { generateClient } from 'aws-amplify/api';
+import { Amplify } from 'aws-amplify';
+import type { WithAuthenticatorProps } from '@aws-amplify/ui-react';
+import { withAuthenticator } from '@aws-amplify/ui-react';
+import '@aws-amplify/ui-react/styles.css';
 
 import ZoneCard from './components/ZoneCard';
+
+import config from './amplifyconfiguration.json';
+Amplify.configure(config);
 
 const initialState: CreateZoneInput = { id: '', title: '' };
 const client = generateClient();
 
-const App = () => {
+export function App({signOut, user}: WithAuthenticatorProps) {
   const [formState, setFormState] = useState<CreateZoneInput>(initialState);
   const [zones, setZones] = useState<Zone[] | CreateZoneInput[]>([]);
 
@@ -50,7 +58,7 @@ const App = () => {
   }
   return (
     <div style={styles.container}>
-
+      
     <header style={styles.header}>Zones</header>
       {zones.map((zone, index) => (
         <ZoneCard key={zone.id ? zone.id : index} zone={zone}/>
@@ -75,7 +83,7 @@ const App = () => {
       <button style={styles.button} onClick={addZone}>
         Create Zone
       </button>
-     
+      <button style={styles.signOut} onClick={signOut}>Sign out</button>
     </div>
   );
 };
@@ -105,10 +113,13 @@ const styles = {
     fontSize: 18,
     padding: "12px 0px",
   },
+  signOut: {
+    marginTop: '30px',
+  },
   header: {
     paddingTop: '30px',
     fontSize: 30,
   },
 } as const;
 
-export default App;
+export default withAuthenticator(App);
