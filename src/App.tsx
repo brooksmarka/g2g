@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState} from 'react';
 
 import { createZone } from './graphql/mutations';
 import { listZones } from './graphql/queries';
@@ -8,6 +8,10 @@ import './App.css';
 import { generateClient } from 'aws-amplify/api';
 import { Amplify } from 'aws-amplify';
 import { Authenticator } from '@aws-amplify/ui-react';
+
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+
+import ZoneDetail from './components/ZoneDetail';
 
 import '@aws-amplify/ui-react/styles.css';
 
@@ -61,33 +65,40 @@ export default function App() {
   return (
     <Authenticator components={authComponents}>
       {({ signOut }) => (
-        <div style={styles.container}>
-        <header style={styles.header}>Zones</header>
-          {zones.map((zone, index) => (
-            <ZoneCard key={zone.id ? zone.id : index} zone={zone}/>
-          ))}
-          <h2>Create a zone</h2>
-          <input
-            onChange={(event) =>
-              setFormState({ ...formState, title: event.target.value })
-            }
-            style={styles.input}
-            value={formState.title as string}
-            placeholder="title"
-          />
-          <input
-            onChange={(event) =>
-              setFormState({ ...formState, id: event.target.value })
-            }
-            style={styles.input}
-            value={formState.id || ''}
-            placeholder="id"
-          />
-          <button style={styles.button} onClick={addZone}>
-            Create Zone
-          </button>
-          <button style={styles.signOut} onClick={signOut}>Sign out</button>
-        </div>
+        <BrowserRouter>
+          <Routes>
+          <Route path='/' element={
+            <div style={styles.container}>
+            <header style={styles.header}>Zones</header>
+              {zones.map((zone, index) => (
+                <ZoneCard key={zone.id ? zone.id : index} zone={zone}/>
+              ))}
+              <h2>Create a zone</h2>
+              <input
+                onChange={(event) =>
+                  setFormState({ ...formState, title: event.target.value })
+                }
+                style={styles.input}
+                value={formState.title as string}
+                placeholder="title"
+              />
+              <input
+                onChange={(event) =>
+                  setFormState({ ...formState, id: event.target.value })
+                }
+                style={styles.input}
+                value={formState.id || ''}
+                placeholder="id"
+              />
+              <button style={styles.button} onClick={addZone}>
+                Create Zone
+              </button>
+              <button style={styles.signOut} onClick={signOut}>Sign out</button>
+            </div>
+          }/>
+          <Route path='/zone/:zoneId' element={<ZoneDetail />} />
+        </Routes>
+        </BrowserRouter>
       )}
     </Authenticator>
   );
