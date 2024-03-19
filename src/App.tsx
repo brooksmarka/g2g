@@ -4,7 +4,7 @@ import { type CreateZoneInput, type Zone } from './API';
 
 import { generateClient } from 'aws-amplify/api';
 import { Amplify } from 'aws-amplify';
-import { Authenticator, Button, Grid } from '@aws-amplify/ui-react';
+import { Authenticator, Button, Grid, Heading, Flex} from '@aws-amplify/ui-react';
 
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
@@ -46,13 +46,16 @@ export default function App() {
         <BrowserRouter>
           <Routes>
           <Route path='/' element={
-              <Grid templateColumns="repeat(1, 1fr)" gap="5px">
-                {zones.map((zone, index) => (
-                  <ZoneCard key={zone.id ? zone.id : index} zone={zone} />
-                ))}
-                <Button backgroundColor = "grey" color ="white"
-                  onClick={signOut} variation="link" marginTop="20px">Sign out</Button>
-              </Grid>
+              <Flex direction="column" alignItems="center" justifyContent="center">
+                <Heading color="white" textAlign="center">Zones</Heading>
+                <Grid templateColumns="repeat(auto-fit, minmax(300px, 1fr))" gap="20px" width="100%" justifyContent="center">
+                  {zones.map((zone, index) => (
+                    <ZoneCard key={zone.id ? zone.id : index} zone={zone} />
+                  ))}
+                </Grid>
+                <Button backgroundColor="grey" color="white"
+                  onClick={signOut} width="300px" variation="link" marginTop="20px">Sign out</Button>
+              </Flex>
           }/>
           <Route path='/zone/:zoneId' element={<ZoneDetail />} />
         </Routes>
