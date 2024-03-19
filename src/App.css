@@ -1,8 +1,5 @@
 .amplify-button--primary {
-  font-size: 2rem;
-  padding: 1rem 2rem;
   background: #3c5c47 !important;
-  border: 2px solid black;
 }
 
 .amplify-button--primary:hover {
@@ -11,6 +8,7 @@
 
 .amplify-button--link {
   color: #3c5c47 !important;
+  background-color: lightgray !important;
 }
 
 .amplify-tabs__item {
