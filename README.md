@@ -17,7 +17,6 @@ This project uses several npm scripts to automate the development process, which
 
 The project is configured with Continuous Integration for automatic builds on push/merge events to specific branches.
 
-- Development branch build is viewable at [dev environment](https://dev.dfgtjw67rhr7y.amplifyapp.com/).
 - Main branch build is viewable at [production environment](https://main.dfgtjw67rhr7y.amplifyapp.com/).
 
 **Development Branch:**
