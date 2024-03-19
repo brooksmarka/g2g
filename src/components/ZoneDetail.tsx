@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { generateClient } from 'aws-amplify/api';
 import { getZone } from '../graphql/queries';
-import { Flex, Card, Text, Image, Badge, Button, StepperField, RadioGroupField, Radio, Menu, MenuItem, Divider, Tabs } from '@aws-amplify/ui-react';
+import { Flex, Card, Text, Badge, Button, Menu, MenuItem, Divider } from '@aws-amplify/ui-react';
 import { GetZoneQuery } from '../API'; // Import the generated type for GetZoneQuery
 import { useNavigate } from 'react-router-dom';
 
