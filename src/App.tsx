@@ -14,7 +14,7 @@ import '@aws-amplify/ui-react/styles.css';
 import ZoneCard from './components/ZoneCard';
 
 import config from './amplifyconfiguration.json';
-import authComponents from './components/Auth/authComponents';
+import authComponents from './components/authComponents';
 
 Amplify.configure(config);
 
