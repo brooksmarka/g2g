@@ -9,6 +9,7 @@ import { Authenticator, Button, Grid, Heading, Flex} from '@aws-amplify/ui-react
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 import ZoneDetail from './components/ZoneDetail';
+import ListTrails from './components/ListTrails';
 
 import '@aws-amplify/ui-react/styles.css';
 
@@ -49,7 +50,7 @@ export default function App() {
               <Flex direction="column" alignItems="center" justifyContent="center">
                 <Heading color="white" textAlign="center">Zones</Heading>
                 <Grid templateColumns="repeat(auto-fit, minmax(300px, 1fr))" gap="20px" width="100%" justifyContent="center">
-                  {zones.map((zone, index) => (
+                  {zones.filter(zone => zone.id !== "0" ).map((zone, index) => (
                     <ZoneCard key={zone.id ? zone.id : index} zone={zone} />
                   ))}
                 </Grid>
@@ -58,6 +59,7 @@ export default function App() {
               </Flex>
           }/>
           <Route path='/zone/:zoneId' element={<ZoneDetail />} />
+          <Route path="/zone/:zoneId/trails" element={<ListTrails />} />  
         </Routes>
         </BrowserRouter>
       )}

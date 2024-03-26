@@ -23,7 +23,7 @@ const ZoneCard: React.FC<ZoneCardProps> = ({ zone }) => {
                     <Text style={{ color: 'lightGrey', fontSize: '1.2em', fontWeight: 'bold', marginBottom: '5px' }}>
                         {zone.title}
                     </Text>
-                    <Text style={{ color: 'lightGrey' }}>{zone.id}</Text>
+                    <Text style={{ color: 'lightGrey' }}>{zone.description}</Text>
                 </View>
             </Card>
         </Link>

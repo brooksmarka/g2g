@@ -12,6 +12,8 @@ export const onCreateZone = /* GraphQL */ `subscription OnCreateZone($filter: Mo
   onCreateZone(filter: $filter) {
     id
     title
+    description
+    imageKey
     trails {
       nextToken
       __typename
@@ -29,6 +31,8 @@ export const onUpdateZone = /* GraphQL */ `subscription OnUpdateZone($filter: Mo
   onUpdateZone(filter: $filter) {
     id
     title
+    description
+    imageKey
     trails {
       nextToken
       __typename
@@ -46,6 +50,8 @@ export const onDeleteZone = /* GraphQL */ `subscription OnDeleteZone($filter: Mo
   onDeleteZone(filter: $filter) {
     id
     title
+    description
+    imageKey
     trails {
       nextToken
       __typename
@@ -62,9 +68,17 @@ export const onDeleteZone = /* GraphQL */ `subscription OnDeleteZone($filter: Mo
 export const onCreateTrail = /* GraphQL */ `subscription OnCreateTrail($filter: ModelSubscriptionTrailFilterInput) {
   onCreateTrail(filter: $filter) {
     id
+    zoneID
+    title
+    coordinates {
+      nextToken
+      __typename
+    }
     zone {
       id
       title
+      description
+      imageKey
       createdAt
       updatedAt
       __typename
@@ -83,9 +97,17 @@ export const onCreateTrail = /* GraphQL */ `subscription OnCreateTrail($filter: 
 export const onUpdateTrail = /* GraphQL */ `subscription OnUpdateTrail($filter: ModelSubscriptionTrailFilterInput) {
   onUpdateTrail(filter: $filter) {
     id
+    zoneID
+    title
+    coordinates {
+      nextToken
+      __typename
+    }
     zone {
       id
       title
+      description
+      imageKey
       createdAt
       updatedAt
       __typename
@@ -104,9 +126,17 @@ export const onUpdateTrail = /* GraphQL */ `subscription OnUpdateTrail($filter: 
 export const onDeleteTrail = /* GraphQL */ `subscription OnDeleteTrail($filter: ModelSubscriptionTrailFilterInput) {
   onDeleteTrail(filter: $filter) {
     id
+    zoneID
+    title
+    coordinates {
+      nextToken
+      __typename
+    }
     zone {
       id
       title
+      description
+      imageKey
       createdAt
       updatedAt
       __typename
@@ -121,4 +151,88 @@ export const onDeleteTrail = /* GraphQL */ `subscription OnDeleteTrail($filter: 
 ` as GeneratedSubscription<
   APITypes.OnDeleteTrailSubscriptionVariables,
   APITypes.OnDeleteTrailSubscription
+>;
+export const onCreateCoordinate = /* GraphQL */ `subscription OnCreateCoordinate(
+  $filter: ModelSubscriptionCoordinateFilterInput
+) {
+  onCreateCoordinate(filter: $filter) {
+    id
+    trailID
+    latitude
+    longitude
+    trail {
+      id
+      zoneID
+      title
+      status
+      createdAt
+      updatedAt
+      zoneTrailsId
+      __typename
+    }
+    createdAt
+    updatedAt
+    trailCoordinatesId
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnCreateCoordinateSubscriptionVariables,
+  APITypes.OnCreateCoordinateSubscription
+>;
+export const onUpdateCoordinate = /* GraphQL */ `subscription OnUpdateCoordinate(
+  $filter: ModelSubscriptionCoordinateFilterInput
+) {
+  onUpdateCoordinate(filter: $filter) {
+    id
+    trailID
+    latitude
+    longitude
+    trail {
+      id
+      zoneID
+      title
+      status
+      createdAt
+      updatedAt
+      zoneTrailsId
+      __typename
+    }
+    createdAt
+    updatedAt
+    trailCoordinatesId
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnUpdateCoordinateSubscriptionVariables,
+  APITypes.OnUpdateCoordinateSubscription
+>;
+export const onDeleteCoordinate = /* GraphQL */ `subscription OnDeleteCoordinate(
+  $filter: ModelSubscriptionCoordinateFilterInput
+) {
+  onDeleteCoordinate(filter: $filter) {
+    id
+    trailID
+    latitude
+    longitude
+    trail {
+      id
+      zoneID
+      title
+      status
+      createdAt
+      updatedAt
+      zoneTrailsId
+      __typename
+    }
+    createdAt
+    updatedAt
+    trailCoordinatesId
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnDeleteCoordinateSubscriptionVariables,
+  APITypes.OnDeleteCoordinateSubscription
 >;

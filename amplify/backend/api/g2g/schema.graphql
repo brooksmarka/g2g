@@ -5,11 +5,24 @@ input AMPLIFY { globalAuthRule: AuthRule = { allow: public } } # FOR TESTING ONL
 type Zone @model {
   id: ID!
   title: String!
+  description: String
+  imageKey: String
   trails: [Trail] @hasMany
 }
 
 type Trail @model {
   id: ID!
-  zone: Zone @belongsTo
+  zoneID: ID! @index(name: "ListTrailItems", sortKeyFields: ["title"])
+  title: String!
+  coordinates: [Coordinate] @hasMany
+  zone: Zone @belongsTo(fields: ["zoneID"])
   status: String!
+}
+
+type Coordinate @model {
+  id: ID!
+  trailID: ID! @index(name: "ListCoordinates", sortKeyFields: ["latitude", "longitude"])
+  latitude: Float!
+  longitude: Float!
+  trail: Trail @belongsTo(fields: ["trailID"])
 }
