@@ -55,9 +55,6 @@ function ZoneDetail() {
       {/* Replace with actual image path */}
       {/* <Image src="/path-to-your-zone-image.jpg" alt={zone.title} width="8rem" /> */}
       <Flex direction="column" gap="xs" padding="1rem">
-        <Flex>
-          <Badge variation="success">New</Badge>
-        </Flex>
         <Text fontSize="large" fontWeight="semibold">
           {zone.title}
         </Text>
@@ -65,14 +62,13 @@ function ZoneDetail() {
           {zone.description}
         </Text>
         <Text color="font.info">
-            Current Status: <Badge variation="success">Green</Badge>
+            Current Status: <Badge variation="success">Good to Go</Badge>
         </Text>
         <Text >
             Last Update: <Date></Date>
         </Text>
-        <Button variation="primary" onClick={() => alert('add trail')}>Add A Trail Status</Button>
         <Link to={`/zone/${zoneId}/trails`} >
-          <Button variation="link" >View Trail Status</Button>
+          <Button variation="primary" >View Trail Status</Button>
         </Link>
 
         
