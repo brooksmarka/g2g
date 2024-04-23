@@ -6,7 +6,7 @@ import { generateClient } from 'aws-amplify/api';
 import { Amplify } from 'aws-amplify';
 import { Authenticator, Button, Grid, Heading, Flex} from '@aws-amplify/ui-react';
 
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 import ZoneDetail from './components/ZoneDetail';
 import ListTrails from './components/ListTrails';
