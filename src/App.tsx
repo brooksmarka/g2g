@@ -58,8 +58,8 @@ export default function App() {
                   onClick={signOut} width="300px" variation="link" marginTop="20px">Sign out</Button>
               </Flex>
           }/>
-          <Route path='/zone/:zoneId/' element={<Navigate replace to={`/zone/:zoneId`} />} />
-          <Route path='/zone/:zoneId' element={<ZoneDetail />} />
+          <Route path='/zone/:zoneId/' element={<ZoneDetail />} />
+
           <Route path="/zone/:zoneId/trails" element={<ListTrails />} />  
         </Routes>
         </BrowserRouter>
