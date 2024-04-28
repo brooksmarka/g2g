@@ -10,7 +10,7 @@ const authComponents = {
             padding={`${tokens.space.xl} 0 0 ${tokens.space.xl}`}
             level={3}
           >
-           Sign in to your g2g account
+           Sign in to your Mud or Hero account
           </Heading>
         );
       },
@@ -24,7 +24,7 @@ const authComponents = {
             padding={`${tokens.space.xl} 0 0 ${tokens.space.xl}`}
             level={3}
           >
-            Create a new g2g account
+            Create a new Mud or Hero account
           </Heading>
         );
       },
