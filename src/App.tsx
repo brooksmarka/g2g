@@ -12,7 +12,7 @@ import ZoneDetail from './components/ZoneDetail';
 import ListTrails from './components/ListTrails';
 
 import '@aws-amplify/ui-react/styles.css';
-import titleImage from './assets/mudorhero.webp'
+import titleImage from '/mudorhero.webp'
 
 import './App.css';
 import ZoneCard from './components/ZoneCard';
