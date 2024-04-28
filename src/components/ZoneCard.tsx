@@ -17,16 +17,16 @@ const ZoneCard: React.FC<ZoneCardProps> = ({ zone }) => {
     }
 
     return (
-        <Link to={`/zone/${zone.id}`} style={{ textDecoration: 'none' }}>
-            <Card variation="elevated" style={{ margin: '10px', width: "300px", backgroundColor: '#3c5c47', borderRadius: '10px' }}>
-                <View style={{ textAlign: 'center',  backgroundColor: '#3c5c47' }}>
-                    <Text style={{ color: 'lightGrey', fontSize: '1.2em', fontWeight: 'bold', marginBottom: '5px' }}>
-                        {zone.title}
-                    </Text>
-                    <Text style={{ color: 'lightGrey' }}>{zone.description}</Text>
-                </View>
-            </Card>
-        </Link>
+            <Link to={`/zone/${zone.id}`} style={{ textDecoration: 'none' }}>
+                <Card variation="elevated" style={{ margin: '10px', width: "300px", backgroundColor: '#3c5c47', borderRadius: '10px' }}>
+                    <View style={{ textAlign: 'center',  backgroundColor: '#3c5c47' }}>
+                        <Text style={{ color: 'lightGrey', fontSize: '1.2em', fontWeight: 'bold', marginBottom: '5px' }}>
+                            {zone.title}
+                        </Text>
+                        <Text style={{ color: 'lightGrey' }}>{zone.description}</Text>
+                    </View>
+                </Card>
+            </Link>
     );
 };
 
