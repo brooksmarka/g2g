@@ -4,7 +4,7 @@ import { type CreateZoneInput, type Zone } from './API';
 
 import { generateClient } from 'aws-amplify/api';
 import { Amplify } from 'aws-amplify';
-import { Authenticator, Button, Grid, Heading, Flex} from '@aws-amplify/ui-react';
+import { Authenticator, Button, Grid, Flex} from '@aws-amplify/ui-react';
 
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
