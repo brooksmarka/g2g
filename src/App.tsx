@@ -12,6 +12,7 @@ import ZoneDetail from './components/ZoneDetail';
 import ListTrails from './components/ListTrails';
 
 import '@aws-amplify/ui-react/styles.css';
+import titleImage from './assets/mudorhero.webp'
 
 import './App.css';
 import ZoneCard from './components/ZoneCard';
@@ -42,28 +43,32 @@ export default function App() {
   }
 
   return (
-    <Authenticator components={authComponents}>
-      {({ signOut }) => (
-        <BrowserRouter>
-          <Routes>
-          <Route path='/' element={
-              <Flex direction="column" alignItems="center" justifyContent="center">
-                <Heading color="white" textAlign="center">Zones</Heading>
-                <Grid templateColumns="repeat(auto-fit, minmax(300px, 1fr))" gap="20px" width="100%" justifyContent="center">
-                  {zones.filter(zone => zone.id !== "0" ).map((zone, index) => (
-                    <ZoneCard key={zone.id ? zone.id : index} zone={zone} />
-                  ))}
-                </Grid>
-                <Button backgroundColor="grey" color="white"
-                  onClick={signOut} width="300px" variation="link" marginTop="20px">Sign out</Button>
-              </Flex>
-          }/>
-          <Route path='/zone/:zoneId/' element={<ZoneDetail />} />
-
-          <Route path="/zone/:zoneId/trails" element={<ListTrails />} />  
-        </Routes>
-        </BrowserRouter>
-      )}
-    </Authenticator>
+    <>
+      <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100%' }}>
+        <img src={titleImage} alt="Zones" style={{ width: '80%', maxWidth: '300px', margin: '20px auto' }} />
+      </div>
+      <Authenticator components={authComponents}>
+        {({ signOut }) => (
+          <BrowserRouter>
+            <Routes>
+            <Route path='/' element={
+                <Flex direction="column" alignItems="center" justifyContent="center">
+                  <Grid templateColumns="repeat(auto-fit, minmax(300px, 1fr))" gap="20px">
+                    {zones.filter(zone => zone.id !== "0" ).map((zone, index) => (
+                      <ZoneCard key={zone.id ? zone.id : index} zone={zone} />
+                    ))}
+                  </Grid>
+                  <Button backgroundColor="grey" color="white"
+                    onClick={signOut} width="300px" variation="link" marginTop="20px">Sign out
+                  </Button>
+                </Flex>
+            }/>
+            <Route path='/zone/:zoneId/' element={<ZoneDetail />} />
+            <Route path="/zone/:zoneId/trails" element={<ListTrails />} />  
+          </Routes>
+          </BrowserRouter>
+        )}
+      </Authenticator>
+    </>
   );
 };
