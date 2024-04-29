@@ -4,15 +4,19 @@ import { generateClient } from 'aws-amplify/api';
 import { getZone, trailsByZoneIDAndTitle } from '../graphql/queries';
 import { Flex, Card, Text, Badge, Button, Breadcrumbs } from '@aws-amplify/ui-react';
 import { GetZoneQuery, TrailsByZoneIDAndTitleQuery } from '../API'; // Import the generated type for GetZoneQuery
+import { useAtom, atom } from 'jotai';
 
 const client = generateClient();
+
+const trailsAtom = atom<TrailsByZoneIDAndTitleQuery["trailsByZoneIDAndTitle"] | null>(null)
+const zoneAtom = atom<GetZoneQuery["getZone"] | null>(null)
 
 function ZoneDetail() {
   const { zoneId } = useParams<{ zoneId: string }>();
   const safeZoneId = zoneId || '0';
 
-  const [trails, setTrails] = useState<TrailsByZoneIDAndTitleQuery["trailsByZoneIDAndTitle"] | null>(null);
-  const [zone, setZone] = useState<GetZoneQuery["getZone"] | null>(null);
+  const [trails, setTrails] = useAtom(trailsAtom)
+  const [zone, setZone] = useAtom(zoneAtom)
 
   async function fetchTrails() {
     try {
@@ -20,7 +24,6 @@ function ZoneDetail() {
         query: trailsByZoneIDAndTitle,
         variables: { zoneID: safeZoneId },
       });
-      console.log("what is happening here", response.data.trailsByZoneIDAndTitle)
       setTrails(response.data.trailsByZoneIDAndTitle);
     } catch (err) {
       console.error('Error fetching trail details:', err);
