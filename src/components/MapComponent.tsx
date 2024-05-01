@@ -18,7 +18,7 @@ const MapComponent = ({ coordinates }: MapComponentProps) => {
 
     function findCenter( coordinates: Coordinates): [number, number]{
         let length = coordinates.length
-        let middle = length/2;
+        let middle = Math.floor(length/2);
         const middleCoord = coordinates[middle]
 
         return [middleCoord[0], middleCoord[1]]
@@ -37,7 +37,7 @@ const MapComponent = ({ coordinates }: MapComponentProps) => {
                 const map = mapRef.current;
 
                 // Define the GeoJSON data
-                const geojsonData = {
+                const geojsonData: GeoJSON.Feature<GeoJSON.LineString> = {
                     type: 'Feature',
                     properties: {},
                     geometry: {

@@ -14,15 +14,7 @@ type Trail @model {
   id: ID!
   zoneID: ID! @index(name: "ListTrailItems", sortKeyFields: ["title"])
   title: String!
-  coordinates: [Coordinate] @hasMany
+  coordinates: [[Float]]
   zone: Zone @belongsTo(fields: ["zoneID"])
   status: String!
-}
-
-type Coordinate @model {
-  id: ID!
-  trailID: ID! @index(name: "ListCoordinates", sortKeyFields: ["latitude", "longitude"])
-  latitude: Float!
-  longitude: Float!
-  trail: Trail @belongsTo(fields: ["trailID"])
 }

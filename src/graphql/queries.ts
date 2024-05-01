@@ -49,10 +49,7 @@ export const getTrail = /* GraphQL */ `query GetTrail($id: ID!) {
     id
     zoneID
     title
-    coordinates {
-      nextToken
-      __typename
-    }
+    coordinates
     zone {
       id
       title
@@ -80,6 +77,7 @@ export const listTrails = /* GraphQL */ `query ListTrails(
       id
       zoneID
       title
+      coordinates
       status
       createdAt
       updatedAt
@@ -93,56 +91,6 @@ export const listTrails = /* GraphQL */ `query ListTrails(
 ` as GeneratedQuery<
   APITypes.ListTrailsQueryVariables,
   APITypes.ListTrailsQuery
->;
-export const getCoordinate = /* GraphQL */ `query GetCoordinate($id: ID!) {
-  getCoordinate(id: $id) {
-    id
-    trailID
-    latitude
-    longitude
-    trail {
-      id
-      zoneID
-      title
-      status
-      createdAt
-      updatedAt
-      zoneTrailsId
-      __typename
-    }
-    createdAt
-    updatedAt
-    trailCoordinatesId
-    __typename
-  }
-}
-` as GeneratedQuery<
-  APITypes.GetCoordinateQueryVariables,
-  APITypes.GetCoordinateQuery
->;
-export const listCoordinates = /* GraphQL */ `query ListCoordinates(
-  $filter: ModelCoordinateFilterInput
-  $limit: Int
-  $nextToken: String
-) {
-  listCoordinates(filter: $filter, limit: $limit, nextToken: $nextToken) {
-    items {
-      id
-      trailID
-      latitude
-      longitude
-      createdAt
-      updatedAt
-      trailCoordinatesId
-      __typename
-    }
-    nextToken
-    __typename
-  }
-}
-` as GeneratedQuery<
-  APITypes.ListCoordinatesQueryVariables,
-  APITypes.ListCoordinatesQuery
 >;
 export const trailsByZoneIDAndTitle = /* GraphQL */ `query TrailsByZoneIDAndTitle(
   $zoneID: ID!
@@ -164,6 +112,7 @@ export const trailsByZoneIDAndTitle = /* GraphQL */ `query TrailsByZoneIDAndTitl
       id
       zoneID
       title
+      coordinates
       status
       createdAt
       updatedAt
@@ -177,38 +126,4 @@ export const trailsByZoneIDAndTitle = /* GraphQL */ `query TrailsByZoneIDAndTitl
 ` as GeneratedQuery<
   APITypes.TrailsByZoneIDAndTitleQueryVariables,
   APITypes.TrailsByZoneIDAndTitleQuery
->;
-export const coordinatesByTrailIDAndLatitudeAndLongitude = /* GraphQL */ `query CoordinatesByTrailIDAndLatitudeAndLongitude(
-  $trailID: ID!
-  $latitudeLongitude: ModelCoordinateListCoordinatesCompositeKeyConditionInput
-  $sortDirection: ModelSortDirection
-  $filter: ModelCoordinateFilterInput
-  $limit: Int
-  $nextToken: String
-) {
-  coordinatesByTrailIDAndLatitudeAndLongitude(
-    trailID: $trailID
-    latitudeLongitude: $latitudeLongitude
-    sortDirection: $sortDirection
-    filter: $filter
-    limit: $limit
-    nextToken: $nextToken
-  ) {
-    items {
-      id
-      trailID
-      latitude
-      longitude
-      createdAt
-      updatedAt
-      trailCoordinatesId
-      __typename
-    }
-    nextToken
-    __typename
-  }
-}
-` as GeneratedQuery<
-  APITypes.CoordinatesByTrailIDAndLatitudeAndLongitudeQueryVariables,
-  APITypes.CoordinatesByTrailIDAndLatitudeAndLongitudeQuery
 >;

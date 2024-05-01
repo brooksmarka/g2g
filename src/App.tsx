@@ -10,7 +10,6 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 import ZoneDetail from './components/ZoneDetail';
 import ListTrails from './components/ListTrails';
-import MapComponent from './components/MapComponent'
 
 import '@aws-amplify/ui-react/styles.css';
 import titleImage from '/mudorhero.webp'

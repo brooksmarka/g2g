@@ -70,10 +70,7 @@ export const onCreateTrail = /* GraphQL */ `subscription OnCreateTrail($filter: 
     id
     zoneID
     title
-    coordinates {
-      nextToken
-      __typename
-    }
+    coordinates
     zone {
       id
       title
@@ -99,10 +96,7 @@ export const onUpdateTrail = /* GraphQL */ `subscription OnUpdateTrail($filter: 
     id
     zoneID
     title
-    coordinates {
-      nextToken
-      __typename
-    }
+    coordinates
     zone {
       id
       title
@@ -128,10 +122,7 @@ export const onDeleteTrail = /* GraphQL */ `subscription OnDeleteTrail($filter: 
     id
     zoneID
     title
-    coordinates {
-      nextToken
-      __typename
-    }
+    coordinates
     zone {
       id
       title
@@ -151,88 +142,4 @@ export const onDeleteTrail = /* GraphQL */ `subscription OnDeleteTrail($filter: 
 ` as GeneratedSubscription<
   APITypes.OnDeleteTrailSubscriptionVariables,
   APITypes.OnDeleteTrailSubscription
->;
-export const onCreateCoordinate = /* GraphQL */ `subscription OnCreateCoordinate(
-  $filter: ModelSubscriptionCoordinateFilterInput
-) {
-  onCreateCoordinate(filter: $filter) {
-    id
-    trailID
-    latitude
-    longitude
-    trail {
-      id
-      zoneID
-      title
-      status
-      createdAt
-      updatedAt
-      zoneTrailsId
-      __typename
-    }
-    createdAt
-    updatedAt
-    trailCoordinatesId
-    __typename
-  }
-}
-` as GeneratedSubscription<
-  APITypes.OnCreateCoordinateSubscriptionVariables,
-  APITypes.OnCreateCoordinateSubscription
->;
-export const onUpdateCoordinate = /* GraphQL */ `subscription OnUpdateCoordinate(
-  $filter: ModelSubscriptionCoordinateFilterInput
-) {
-  onUpdateCoordinate(filter: $filter) {
-    id
-    trailID
-    latitude
-    longitude
-    trail {
-      id
-      zoneID
-      title
-      status
-      createdAt
-      updatedAt
-      zoneTrailsId
-      __typename
-    }
-    createdAt
-    updatedAt
-    trailCoordinatesId
-    __typename
-  }
-}
-` as GeneratedSubscription<
-  APITypes.OnUpdateCoordinateSubscriptionVariables,
-  APITypes.OnUpdateCoordinateSubscription
->;
-export const onDeleteCoordinate = /* GraphQL */ `subscription OnDeleteCoordinate(
-  $filter: ModelSubscriptionCoordinateFilterInput
-) {
-  onDeleteCoordinate(filter: $filter) {
-    id
-    trailID
-    latitude
-    longitude
-    trail {
-      id
-      zoneID
-      title
-      status
-      createdAt
-      updatedAt
-      zoneTrailsId
-      __typename
-    }
-    createdAt
-    updatedAt
-    trailCoordinatesId
-    __typename
-  }
-}
-` as GeneratedSubscription<
-  APITypes.OnDeleteCoordinateSubscriptionVariables,
-  APITypes.OnDeleteCoordinateSubscription
 >;
