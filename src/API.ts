@@ -16,6 +16,8 @@ export type ModelZoneConditionInput = {
   and?: Array< ModelZoneConditionInput | null > | null,
   or?: Array< ModelZoneConditionInput | null > | null,
   not?: ModelZoneConditionInput | null,
+  createdAt?: ModelStringInput | null,
+  updatedAt?: ModelStringInput | null,
 };
 
 export type ModelStringInput = {
@@ -80,30 +82,12 @@ export type Trail = {
   id: string,
   zoneID: string,
   title: string,
-  coordinates?: ModelCoordinateConnection | null,
+  coordinates?: Array< Array< number | null > | null > | null,
   zone?: Zone | null,
   status: string,
   createdAt: string,
   updatedAt: string,
   zoneTrailsId?: string | null,
-};
-
-export type ModelCoordinateConnection = {
-  __typename: "ModelCoordinateConnection",
-  items:  Array<Coordinate | null >,
-  nextToken?: string | null,
-};
-
-export type Coordinate = {
-  __typename: "Coordinate",
-  id: string,
-  trailID: string,
-  latitude: number,
-  longitude: number,
-  trail?: Trail | null,
-  createdAt: string,
-  updatedAt: string,
-  trailCoordinatesId?: string | null,
 };
 
 export type UpdateZoneInput = {
@@ -121,6 +105,7 @@ export type CreateTrailInput = {
   id?: string | null,
   zoneID: string,
   title: string,
+  coordinates?: Array< Array< number | null > | null > | null,
   status: string,
   zoneTrailsId?: string | null,
 };
@@ -128,10 +113,13 @@ export type CreateTrailInput = {
 export type ModelTrailConditionInput = {
   zoneID?: ModelIDInput | null,
   title?: ModelStringInput | null,
+  coordinates?: ModelFloatInput | null,
   status?: ModelStringInput | null,
   and?: Array< ModelTrailConditionInput | null > | null,
   or?: Array< ModelTrailConditionInput | null > | null,
   not?: ModelTrailConditionInput | null,
+  createdAt?: ModelStringInput | null,
+  updatedAt?: ModelStringInput | null,
   zoneTrailsId?: ModelIDInput | null,
 };
 
@@ -151,36 +139,6 @@ export type ModelIDInput = {
   size?: ModelSizeInput | null,
 };
 
-export type UpdateTrailInput = {
-  id: string,
-  zoneID?: string | null,
-  title?: string | null,
-  status?: string | null,
-  zoneTrailsId?: string | null,
-};
-
-export type DeleteTrailInput = {
-  id: string,
-};
-
-export type CreateCoordinateInput = {
-  id?: string | null,
-  trailID: string,
-  latitude: number,
-  longitude: number,
-  trailCoordinatesId?: string | null,
-};
-
-export type ModelCoordinateConditionInput = {
-  trailID?: ModelIDInput | null,
-  latitude?: ModelFloatInput | null,
-  longitude?: ModelFloatInput | null,
-  and?: Array< ModelCoordinateConditionInput | null > | null,
-  or?: Array< ModelCoordinateConditionInput | null > | null,
-  not?: ModelCoordinateConditionInput | null,
-  trailCoordinatesId?: ModelIDInput | null,
-};
-
 export type ModelFloatInput = {
   ne?: number | null,
   eq?: number | null,
@@ -193,15 +151,16 @@ export type ModelFloatInput = {
   attributeType?: ModelAttributeTypes | null,
 };
 
-export type UpdateCoordinateInput = {
+export type UpdateTrailInput = {
   id: string,
-  trailID?: string | null,
-  latitude?: number | null,
-  longitude?: number | null,
-  trailCoordinatesId?: string | null,
+  zoneID?: string | null,
+  title?: string | null,
+  coordinates?: Array< Array< number | null > | null > | null,
+  status?: string | null,
+  zoneTrailsId?: string | null,
 };
 
-export type DeleteCoordinateInput = {
+export type DeleteTrailInput = {
   id: string,
 };
 
@@ -210,6 +169,8 @@ export type ModelZoneFilterInput = {
   title?: ModelStringInput | null,
   description?: ModelStringInput | null,
   imageKey?: ModelStringInput | null,
+  createdAt?: ModelStringInput | null,
+  updatedAt?: ModelStringInput | null,
   and?: Array< ModelZoneFilterInput | null > | null,
   or?: Array< ModelZoneFilterInput | null > | null,
   not?: ModelZoneFilterInput | null,
@@ -225,22 +186,14 @@ export type ModelTrailFilterInput = {
   id?: ModelIDInput | null,
   zoneID?: ModelIDInput | null,
   title?: ModelStringInput | null,
+  coordinates?: ModelFloatInput | null,
   status?: ModelStringInput | null,
+  createdAt?: ModelStringInput | null,
+  updatedAt?: ModelStringInput | null,
   and?: Array< ModelTrailFilterInput | null > | null,
   or?: Array< ModelTrailFilterInput | null > | null,
   not?: ModelTrailFilterInput | null,
   zoneTrailsId?: ModelIDInput | null,
-};
-
-export type ModelCoordinateFilterInput = {
-  id?: ModelIDInput | null,
-  trailID?: ModelIDInput | null,
-  latitude?: ModelFloatInput | null,
-  longitude?: ModelFloatInput | null,
-  and?: Array< ModelCoordinateFilterInput | null > | null,
-  or?: Array< ModelCoordinateFilterInput | null > | null,
-  not?: ModelCoordinateFilterInput | null,
-  trailCoordinatesId?: ModelIDInput | null,
 };
 
 export type ModelStringKeyConditionInput = {
@@ -259,28 +212,16 @@ export enum ModelSortDirection {
 }
 
 
-export type ModelCoordinateListCoordinatesCompositeKeyConditionInput = {
-  eq?: ModelCoordinateListCoordinatesCompositeKeyInput | null,
-  le?: ModelCoordinateListCoordinatesCompositeKeyInput | null,
-  lt?: ModelCoordinateListCoordinatesCompositeKeyInput | null,
-  ge?: ModelCoordinateListCoordinatesCompositeKeyInput | null,
-  gt?: ModelCoordinateListCoordinatesCompositeKeyInput | null,
-  between?: Array< ModelCoordinateListCoordinatesCompositeKeyInput | null > | null,
-  beginsWith?: ModelCoordinateListCoordinatesCompositeKeyInput | null,
-};
-
-export type ModelCoordinateListCoordinatesCompositeKeyInput = {
-  latitude?: number | null,
-  longitude?: number | null,
-};
-
 export type ModelSubscriptionZoneFilterInput = {
   id?: ModelSubscriptionIDInput | null,
   title?: ModelSubscriptionStringInput | null,
   description?: ModelSubscriptionStringInput | null,
   imageKey?: ModelSubscriptionStringInput | null,
+  createdAt?: ModelSubscriptionStringInput | null,
+  updatedAt?: ModelSubscriptionStringInput | null,
   and?: Array< ModelSubscriptionZoneFilterInput | null > | null,
   or?: Array< ModelSubscriptionZoneFilterInput | null > | null,
+  zoneTrailsId?: ModelSubscriptionIDInput | null,
 };
 
 export type ModelSubscriptionIDInput = {
@@ -317,18 +258,12 @@ export type ModelSubscriptionTrailFilterInput = {
   id?: ModelSubscriptionIDInput | null,
   zoneID?: ModelSubscriptionIDInput | null,
   title?: ModelSubscriptionStringInput | null,
+  coordinates?: ModelSubscriptionFloatInput | null,
   status?: ModelSubscriptionStringInput | null,
+  createdAt?: ModelSubscriptionStringInput | null,
+  updatedAt?: ModelSubscriptionStringInput | null,
   and?: Array< ModelSubscriptionTrailFilterInput | null > | null,
   or?: Array< ModelSubscriptionTrailFilterInput | null > | null,
-};
-
-export type ModelSubscriptionCoordinateFilterInput = {
-  id?: ModelSubscriptionIDInput | null,
-  trailID?: ModelSubscriptionIDInput | null,
-  latitude?: ModelSubscriptionFloatInput | null,
-  longitude?: ModelSubscriptionFloatInput | null,
-  and?: Array< ModelSubscriptionCoordinateFilterInput | null > | null,
-  or?: Array< ModelSubscriptionCoordinateFilterInput | null > | null,
 };
 
 export type ModelSubscriptionFloatInput = {
@@ -417,10 +352,7 @@ export type CreateTrailMutation = {
     id: string,
     zoneID: string,
     title: string,
-    coordinates?:  {
-      __typename: "ModelCoordinateConnection",
-      nextToken?: string | null,
-    } | null,
+    coordinates?: Array< Array< number | null > | null > | null,
     zone?:  {
       __typename: "Zone",
       id: string,
@@ -448,10 +380,7 @@ export type UpdateTrailMutation = {
     id: string,
     zoneID: string,
     title: string,
-    coordinates?:  {
-      __typename: "ModelCoordinateConnection",
-      nextToken?: string | null,
-    } | null,
+    coordinates?: Array< Array< number | null > | null > | null,
     zone?:  {
       __typename: "Zone",
       id: string,
@@ -479,10 +408,7 @@ export type DeleteTrailMutation = {
     id: string,
     zoneID: string,
     title: string,
-    coordinates?:  {
-      __typename: "ModelCoordinateConnection",
-      nextToken?: string | null,
-    } | null,
+    coordinates?: Array< Array< number | null > | null > | null,
     zone?:  {
       __typename: "Zone",
       id: string,
@@ -496,90 +422,6 @@ export type DeleteTrailMutation = {
     createdAt: string,
     updatedAt: string,
     zoneTrailsId?: string | null,
-  } | null,
-};
-
-export type CreateCoordinateMutationVariables = {
-  input: CreateCoordinateInput,
-  condition?: ModelCoordinateConditionInput | null,
-};
-
-export type CreateCoordinateMutation = {
-  createCoordinate?:  {
-    __typename: "Coordinate",
-    id: string,
-    trailID: string,
-    latitude: number,
-    longitude: number,
-    trail?:  {
-      __typename: "Trail",
-      id: string,
-      zoneID: string,
-      title: string,
-      status: string,
-      createdAt: string,
-      updatedAt: string,
-      zoneTrailsId?: string | null,
-    } | null,
-    createdAt: string,
-    updatedAt: string,
-    trailCoordinatesId?: string | null,
-  } | null,
-};
-
-export type UpdateCoordinateMutationVariables = {
-  input: UpdateCoordinateInput,
-  condition?: ModelCoordinateConditionInput | null,
-};
-
-export type UpdateCoordinateMutation = {
-  updateCoordinate?:  {
-    __typename: "Coordinate",
-    id: string,
-    trailID: string,
-    latitude: number,
-    longitude: number,
-    trail?:  {
-      __typename: "Trail",
-      id: string,
-      zoneID: string,
-      title: string,
-      status: string,
-      createdAt: string,
-      updatedAt: string,
-      zoneTrailsId?: string | null,
-    } | null,
-    createdAt: string,
-    updatedAt: string,
-    trailCoordinatesId?: string | null,
-  } | null,
-};
-
-export type DeleteCoordinateMutationVariables = {
-  input: DeleteCoordinateInput,
-  condition?: ModelCoordinateConditionInput | null,
-};
-
-export type DeleteCoordinateMutation = {
-  deleteCoordinate?:  {
-    __typename: "Coordinate",
-    id: string,
-    trailID: string,
-    latitude: number,
-    longitude: number,
-    trail?:  {
-      __typename: "Trail",
-      id: string,
-      zoneID: string,
-      title: string,
-      status: string,
-      createdAt: string,
-      updatedAt: string,
-      zoneTrailsId?: string | null,
-    } | null,
-    createdAt: string,
-    updatedAt: string,
-    trailCoordinatesId?: string | null,
   } | null,
 };
 
@@ -602,32 +444,6 @@ export type GetZoneQuery = {
     updatedAt: string,
   } | null,
 };
-
-export type GetZoneWithTrailsQueryVariables = {
-  id: string,
-};
-
-export type GetZoneWithTrailsQuery = {
-  getZone?:  {
-    __typename: "Zone",
-    id: string,
-    title: string,
-    description?: string | null,
-    imageKey?: string | null,
-    trails?:  {
-      id: string | null,
-      zoneId: string | null,
-      title: string | null,
-      status:string | null
-    } | null,
-    createdAt: string,
-    updatedAt: string,
-  } | null,
-};
-
-
-
-
 
 export type ListZonesQueryVariables = {
   filter?: ModelZoneFilterInput | null,
@@ -661,10 +477,7 @@ export type GetTrailQuery = {
     id: string,
     zoneID: string,
     title: string,
-    coordinates?:  {
-      __typename: "ModelCoordinateConnection",
-      nextToken?: string | null,
-    } | null,
+    coordinates?: Array< Array< number | null > | null > | null,
     zone?:  {
       __typename: "Zone",
       id: string,
@@ -695,60 +508,11 @@ export type ListTrailsQuery = {
       id: string,
       zoneID: string,
       title: string,
+      coordinates?: Array< Array< number | null > | null > | null,
       status: string,
       createdAt: string,
       updatedAt: string,
       zoneTrailsId?: string | null,
-    } | null >,
-    nextToken?: string | null,
-  } | null,
-};
-
-export type GetCoordinateQueryVariables = {
-  id: string,
-};
-
-export type GetCoordinateQuery = {
-  getCoordinate?:  {
-    __typename: "Coordinate",
-    id: string,
-    trailID: string,
-    latitude: number,
-    longitude: number,
-    trail?:  {
-      __typename: "Trail",
-      id: string,
-      zoneID: string,
-      title: string,
-      status: string,
-      createdAt: string,
-      updatedAt: string,
-      zoneTrailsId?: string | null,
-    } | null,
-    createdAt: string,
-    updatedAt: string,
-    trailCoordinatesId?: string | null,
-  } | null,
-};
-
-export type ListCoordinatesQueryVariables = {
-  filter?: ModelCoordinateFilterInput | null,
-  limit?: number | null,
-  nextToken?: string | null,
-};
-
-export type ListCoordinatesQuery = {
-  listCoordinates?:  {
-    __typename: "ModelCoordinateConnection",
-    items:  Array< {
-      __typename: "Coordinate",
-      id: string,
-      trailID: string,
-      latitude: number,
-      longitude: number,
-      createdAt: string,
-      updatedAt: string,
-      trailCoordinatesId?: string | null,
     } | null >,
     nextToken?: string | null,
   } | null,
@@ -771,36 +535,11 @@ export type TrailsByZoneIDAndTitleQuery = {
       id: string,
       zoneID: string,
       title: string,
+      coordinates?: Array< Array< number | null > | null > | null,
       status: string,
       createdAt: string,
       updatedAt: string,
       zoneTrailsId?: string | null,
-    } | null >,
-    nextToken?: string | null,
-  } | null,
-};
-
-export type CoordinatesByTrailIDAndLatitudeAndLongitudeQueryVariables = {
-  trailID: string,
-  latitudeLongitude?: ModelCoordinateListCoordinatesCompositeKeyConditionInput | null,
-  sortDirection?: ModelSortDirection | null,
-  filter?: ModelCoordinateFilterInput | null,
-  limit?: number | null,
-  nextToken?: string | null,
-};
-
-export type CoordinatesByTrailIDAndLatitudeAndLongitudeQuery = {
-  coordinatesByTrailIDAndLatitudeAndLongitude?:  {
-    __typename: "ModelCoordinateConnection",
-    items:  Array< {
-      __typename: "Coordinate",
-      id: string,
-      trailID: string,
-      latitude: number,
-      longitude: number,
-      createdAt: string,
-      updatedAt: string,
-      trailCoordinatesId?: string | null,
     } | null >,
     nextToken?: string | null,
   } | null,
@@ -876,10 +615,7 @@ export type OnCreateTrailSubscription = {
     id: string,
     zoneID: string,
     title: string,
-    coordinates?:  {
-      __typename: "ModelCoordinateConnection",
-      nextToken?: string | null,
-    } | null,
+    coordinates?: Array< Array< number | null > | null > | null,
     zone?:  {
       __typename: "Zone",
       id: string,
@@ -906,10 +642,7 @@ export type OnUpdateTrailSubscription = {
     id: string,
     zoneID: string,
     title: string,
-    coordinates?:  {
-      __typename: "ModelCoordinateConnection",
-      nextToken?: string | null,
-    } | null,
+    coordinates?: Array< Array< number | null > | null > | null,
     zone?:  {
       __typename: "Zone",
       id: string,
@@ -936,10 +669,7 @@ export type OnDeleteTrailSubscription = {
     id: string,
     zoneID: string,
     title: string,
-    coordinates?:  {
-      __typename: "ModelCoordinateConnection",
-      nextToken?: string | null,
-    } | null,
+    coordinates?: Array< Array< number | null > | null > | null,
     zone?:  {
       __typename: "Zone",
       id: string,
@@ -953,86 +683,5 @@ export type OnDeleteTrailSubscription = {
     createdAt: string,
     updatedAt: string,
     zoneTrailsId?: string | null,
-  } | null,
-};
-
-export type OnCreateCoordinateSubscriptionVariables = {
-  filter?: ModelSubscriptionCoordinateFilterInput | null,
-};
-
-export type OnCreateCoordinateSubscription = {
-  onCreateCoordinate?:  {
-    __typename: "Coordinate",
-    id: string,
-    trailID: string,
-    latitude: number,
-    longitude: number,
-    trail?:  {
-      __typename: "Trail",
-      id: string,
-      zoneID: string,
-      title: string,
-      status: string,
-      createdAt: string,
-      updatedAt: string,
-      zoneTrailsId?: string | null,
-    } | null,
-    createdAt: string,
-    updatedAt: string,
-    trailCoordinatesId?: string | null,
-  } | null,
-};
-
-export type OnUpdateCoordinateSubscriptionVariables = {
-  filter?: ModelSubscriptionCoordinateFilterInput | null,
-};
-
-export type OnUpdateCoordinateSubscription = {
-  onUpdateCoordinate?:  {
-    __typename: "Coordinate",
-    id: string,
-    trailID: string,
-    latitude: number,
-    longitude: number,
-    trail?:  {
-      __typename: "Trail",
-      id: string,
-      zoneID: string,
-      title: string,
-      status: string,
-      createdAt: string,
-      updatedAt: string,
-      zoneTrailsId?: string | null,
-    } | null,
-    createdAt: string,
-    updatedAt: string,
-    trailCoordinatesId?: string | null,
-  } | null,
-};
-
-export type OnDeleteCoordinateSubscriptionVariables = {
-  filter?: ModelSubscriptionCoordinateFilterInput | null,
-};
-
-export type OnDeleteCoordinateSubscription = {
-  onDeleteCoordinate?:  {
-    __typename: "Coordinate",
-    id: string,
-    trailID: string,
-    latitude: number,
-    longitude: number,
-    trail?:  {
-      __typename: "Trail",
-      id: string,
-      zoneID: string,
-      title: string,
-      status: string,
-      createdAt: string,
-      updatedAt: string,
-      zoneTrailsId?: string | null,
-    } | null,
-    createdAt: string,
-    updatedAt: string,
-    trailCoordinatesId?: string | null,
   } | null,
 };

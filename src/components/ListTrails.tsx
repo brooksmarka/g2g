@@ -5,12 +5,12 @@ import { getZone, trailsByZoneIDAndTitle } from '../graphql/queries';
 import { updateTrail } from '../graphql/mutations'
 import { Card, Text, Divider, View, Breadcrumbs, Heading, Badge, SelectField, Accordion } from '@aws-amplify/ui-react';
 import { TrailsByZoneIDAndTitleQuery, GetZoneQuery } from '../API';
+import MapComponent from './MapComponent';
 
 const client = generateClient();
 
 function ListTrails() {
   const {zoneId } = useParams<{ zoneId: string }>();
-  //TODO: Create a not found trail with id of 0
   const safeZoneId = zoneId || '0';
 
   const trailStatusOptions = ['Dry', 'Hero', 'Snow', 'Mud'];
@@ -112,7 +112,14 @@ return (
     <Divider orientation="horizontal" />
 
     {trails && trails.items.map((trail) => {
-        if (!trail) return null;
+        if (!trail ||!trail.coordinates) return null;
+
+        const sanitizedCoordinates = trail.coordinates
+        .filter(coord => coord !== null && Array.isArray(coord))
+        .map(coord =>
+            coord!.filter(point => typeof point === 'number')
+        ) as number[][];
+        
         return (
           <View key={trail.id}>
             <Accordion allowMultiple
@@ -124,6 +131,7 @@ return (
                     </Text>),
                   value: 'statusChange',
                   content: (
+                    <>
                     <SelectField
                       label={`Change ${trail.title} status`}
                       aria-label={`Change ${trail.title} status`}
@@ -134,6 +142,8 @@ return (
                         <option key={status} value={status}>{status}</option>
                       ))}
                     </SelectField>
+                    <MapComponent coordinates={sanitizedCoordinates} />
+                    </>
                   )
                 }
               ]}

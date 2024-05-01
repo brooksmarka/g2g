@@ -82,10 +82,7 @@ export const createTrail = /* GraphQL */ `mutation CreateTrail(
     id
     zoneID
     title
-    coordinates {
-      nextToken
-      __typename
-    }
+    coordinates
     zone {
       id
       title
@@ -114,10 +111,7 @@ export const updateTrail = /* GraphQL */ `mutation UpdateTrail(
     id
     zoneID
     title
-    coordinates {
-      nextToken
-      __typename
-    }
+    coordinates
     zone {
       id
       title
@@ -146,10 +140,7 @@ export const deleteTrail = /* GraphQL */ `mutation DeleteTrail(
     id
     zoneID
     title
-    coordinates {
-      nextToken
-      __typename
-    }
+    coordinates
     zone {
       id
       title
@@ -169,91 +160,4 @@ export const deleteTrail = /* GraphQL */ `mutation DeleteTrail(
 ` as GeneratedMutation<
   APITypes.DeleteTrailMutationVariables,
   APITypes.DeleteTrailMutation
->;
-export const createCoordinate = /* GraphQL */ `mutation CreateCoordinate(
-  $input: CreateCoordinateInput!
-  $condition: ModelCoordinateConditionInput
-) {
-  createCoordinate(input: $input, condition: $condition) {
-    id
-    trailID
-    latitude
-    longitude
-    trail {
-      id
-      zoneID
-      title
-      status
-      createdAt
-      updatedAt
-      zoneTrailsId
-      __typename
-    }
-    createdAt
-    updatedAt
-    trailCoordinatesId
-    __typename
-  }
-}
-` as GeneratedMutation<
-  APITypes.CreateCoordinateMutationVariables,
-  APITypes.CreateCoordinateMutation
->;
-export const updateCoordinate = /* GraphQL */ `mutation UpdateCoordinate(
-  $input: UpdateCoordinateInput!
-  $condition: ModelCoordinateConditionInput
-) {
-  updateCoordinate(input: $input, condition: $condition) {
-    id
-    trailID
-    latitude
-    longitude
-    trail {
-      id
-      zoneID
-      title
-      status
-      createdAt
-      updatedAt
-      zoneTrailsId
-      __typename
-    }
-    createdAt
-    updatedAt
-    trailCoordinatesId
-    __typename
-  }
-}
-` as GeneratedMutation<
-  APITypes.UpdateCoordinateMutationVariables,
-  APITypes.UpdateCoordinateMutation
->;
-export const deleteCoordinate = /* GraphQL */ `mutation DeleteCoordinate(
-  $input: DeleteCoordinateInput!
-  $condition: ModelCoordinateConditionInput
-) {
-  deleteCoordinate(input: $input, condition: $condition) {
-    id
-    trailID
-    latitude
-    longitude
-    trail {
-      id
-      zoneID
-      title
-      status
-      createdAt
-      updatedAt
-      zoneTrailsId
-      __typename
-    }
-    createdAt
-    updatedAt
-    trailCoordinatesId
-    __typename
-  }
-}
-` as GeneratedMutation<
-  APITypes.DeleteCoordinateMutationVariables,
-  APITypes.DeleteCoordinateMutation
 >;
