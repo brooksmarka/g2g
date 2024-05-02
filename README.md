@@ -4,6 +4,10 @@ An application to let users share trail status
 
 ## Development Workflow
 
+You will need to obtain a mapbox api token for local development purposes.
+Create a .env file at the root of the project and place your mapbox api key within it like so:
+`VITE_MAPBOX_ACCESS_TOKEN="TOKEN_GOES_HERE"`
+
 ### Build Commands
 
 This project uses several npm scripts to automate the development process, which you can run using `npm run <command>`.
@@ -17,12 +21,9 @@ This project uses several npm scripts to automate the development process, which
 
 The project is configured with Continuous Integration for automatic builds on push/merge events to specific branches.
 
-- Main branch build is viewable at [production environment](https://main.dfgtjw67rhr7y.amplifyapp.com/).
-
-**Development Branch:**
-
-Pushes to the `dev` branch will automatically trigger a build and deployment to the development site URL.
+- Main branch build is viewable at www.mudorhero.org
 
 **Main Branch:**
 
 Pushes to the `main` branch will automatically trigger a build and deployment to the production site URL.
+
