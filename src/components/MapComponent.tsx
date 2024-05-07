@@ -1,5 +1,6 @@
 import { useRef, useEffect } from 'react';
 import mapboxgl from 'mapbox-gl';
+import { useTheme } from '@mui/material/styles';
 
 const token = import.meta.env.VITE_MAPBOX_ACCESS_TOKEN;
 if (typeof token === 'undefined') {
@@ -10,11 +11,13 @@ type Coordinates = number[][];
 
 interface MapComponentProps {
     coordinates: Coordinates;
+    status: string;
 }
 
-const MapComponent = ({ coordinates }: MapComponentProps) => {
+const MapComponent = ({ status, coordinates }: MapComponentProps) => {
     const mapRef = useRef<mapboxgl.Map | null>(null);
     const mapContainerRef = useRef<HTMLDivElement | null>(null);
+    const theme = useTheme();
 
     function findCenter( coordinates: Coordinates): [number, number]{
         let length = coordinates.length
@@ -22,6 +25,18 @@ const MapComponent = ({ coordinates }: MapComponentProps) => {
         const middleCoord = coordinates[middle]
 
         return [middleCoord[0], middleCoord[1]]
+    }
+
+    function editTrackColor(status: string){
+        switch (status) {
+            case 'Dry':
+            case 'Hero': 
+                return theme.palette.primary.main
+            case 'Snow':
+            case 'Mud':
+                return theme.palette.error.dark
+            default: return 'black';
+          }
     }
 
     useEffect(() => {
@@ -62,7 +77,7 @@ const MapComponent = ({ coordinates }: MapComponentProps) => {
                             'line-cap': 'round'
                         },
                         paint: {
-                            'line-color': "#3c5c47",
+                            'line-color': editTrackColor(status),
                             'line-width': 7
                         }
                     });
@@ -78,7 +93,7 @@ const MapComponent = ({ coordinates }: MapComponentProps) => {
         };
     }, [coordinates]);
 
-    return <div id="map" ref={mapContainerRef} style={{ width: 400, height: 400 }} />;
+    return <div id="map" ref={mapContainerRef} style={{ height: 500 }} />;
 };
 
 export default MapComponent;

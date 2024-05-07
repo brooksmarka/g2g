@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { generateClient } from 'aws-amplify/api';
 import { getZone, trailsByZoneIDAndTitle } from '../graphql/queries';
-import { Flex, Card, Text, Badge, Button, Breadcrumbs } from '@aws-amplify/ui-react';
+import { Typography, Card, CardContent, Button, Breadcrumbs, Link as MuiLink, Chip } from '@mui/material';
 import { GetZoneQuery, TrailsByZoneIDAndTitleQuery } from '../API'; // Import the generated type for GetZoneQuery
 
 const client = generateClient();
@@ -20,7 +20,6 @@ function ZoneDetail() {
         query: trailsByZoneIDAndTitle,
         variables: { zoneID: safeZoneId },
       });
-      console.log("what is happening here", response.data.trailsByZoneIDAndTitle)
       setTrails(response.data.trailsByZoneIDAndTitle);
     } catch (err) {
       console.error('Error fetching trail details:', err);
@@ -45,13 +44,13 @@ function ZoneDetail() {
   }, [zoneId]);
 
   const renderCorrectBadge = () => {
-    if (!trails) return <Badge variation="warning">Loading...</Badge>;
+    if (!trails) return <Chip label="Loading..." color="warning" />;
 
     let hasGood = false;
     let hasBad = false;
 
     trails.items.forEach(trail => {
-      if (!trail) return
+      if (!trail) return;
       if (["Dry", "Hero"].includes(trail.status)) {
         hasGood = true;
       } else if (["Snow", "Mud"].includes(trail.status)) {
@@ -60,42 +59,42 @@ function ZoneDetail() {
     });
 
     if (hasGood && hasBad) {
-      return <Badge variation="warning">Mixed</Badge>;
+      return <Chip label="Mixed" color="warning" />;
     } else if (hasBad) {
-      return <Badge variation="error">Not Good to Go</Badge>;
+      return <Chip label="Not Good to Go" color="error" />;
     } else {
-      return <Badge variation="success">Good To Go</Badge>;
+      return <Chip label="Good To Go" color='success' />;
     }
   };
 
   if (!zone) {
-    return <Text>Loading zone details...</Text>;
+    return <Typography>Loading zone details...</Typography>;
   }
 
   return (
-    <Card variation="outlined">
-      <Breadcrumbs
-        items={[
-          { href: '/', label: 'Home' },
-          { href: `/zone/${zoneId}/`, label: 'Zone' },
-        ]}
-      />
-      <Flex alignItems="start">
-        <Flex direction="column" gap="xs" padding="1rem">
-          <Text fontSize="large" fontWeight="semibold">
-            {zone.title}
-          </Text>
-          <Text color="font.tertiary">
-            {zone.description}
-          </Text>
-          <Text color="font.info">
-            Current Status: {renderCorrectBadge()}
-          </Text>
-          <Link to={`/zone/${zoneId}/trails`} >
-            <Button variation="primary" >View Trail Status</Button>
-          </Link>
-        </Flex>
-      </Flex>
+    <Card variant="outlined" sx={{ width: '75%', margin: '0 auto', maxWidth: 1280 }}>
+      <CardContent>
+        <Breadcrumbs aria-label="breadcrumb">
+          <MuiLink component={Link} color="inherit" to="/">
+            Home
+          </MuiLink>
+          <MuiLink component={Link} color="inherit" to={`/zone/${zoneId}/`}>
+            Zone
+          </MuiLink>
+        </Breadcrumbs>
+        <Typography variant="h5" component="div" gutterBottom>
+          {zone.title}
+        </Typography>
+        <Typography color="textSecondary">
+          {zone.description}
+        </Typography>
+        <Typography sx={{marginTop: '15px'}}>
+          Current Status: {renderCorrectBadge()}
+        </Typography>
+        <Button sx={{marginTop: '15px', '&:hover': {backgroundColor: '#0a2623',}}}variant="contained" component={Link} to={`/zone/${zoneId}/trails`}>
+          View Trail Status
+        </Button>
+      </CardContent>
     </Card>
   );
 }

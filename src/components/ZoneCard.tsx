@@ -1,7 +1,7 @@
 import React from 'react';
-import { View, Text, Card } from '@aws-amplify/ui-react';
-import { type CreateZoneInput, type Zone } from '../API'
-import { Link } from 'react-router-dom'
+import { Card, CardContent, Typography, Link } from '@mui/material';
+import { type CreateZoneInput, type Zone } from '../API';
+import { Link as RouterLink } from 'react-router-dom';
 
 interface ZoneCardProps {
     zone: CreateZoneInput | Zone;
@@ -17,16 +17,18 @@ const ZoneCard: React.FC<ZoneCardProps> = ({ zone }) => {
     }
 
     return (
-            <Link to={`/zone/${zone.id}`} style={{ textDecoration: 'none' }}>
-                <Card variation="elevated" style={{ margin: '10px', width: "300px", backgroundColor: '#3c5c47', borderRadius: '10px' }}>
-                    <View style={{ textAlign: 'center',  backgroundColor: '#3c5c47' }}>
-                        <Text style={{ color: 'lightGrey', fontSize: '1.2em', fontWeight: 'bold', marginBottom: '5px' }}>
-                            {zone.title}
-                        </Text>
-                        <Text style={{ color: 'lightGrey' }}>{zone.description}</Text>
-                    </View>
-                </Card>
-            </Link>
+        <Link component={RouterLink} to={`/zone/${zone.id}`} style={{ textDecoration: 'none' }}>
+            <Card raised style={{ margin: '10px', width: "300px", backgroundColor: '#3c5c47', borderRadius: '10px' }}>
+                <CardContent style={{ textAlign: 'center', backgroundColor: '#3c5c47' }}>
+                    <Typography variant="h6" style={{ color: 'lightGrey', fontWeight: 'bold', marginBottom: '5px' }}>
+                        {zone.title}
+                    </Typography>
+                    <Typography style={{ color: 'lightGrey' }}>
+                        {zone.description}
+                    </Typography>
+                </CardContent>
+            </Card>
+        </Link>
     );
 };
 

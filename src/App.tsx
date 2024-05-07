@@ -2,6 +2,9 @@ import { useEffect, useState } from 'react';
 import { listZones } from './graphql/queries';
 import { type CreateZoneInput, type Zone } from './API';
 
+import { ThemeProvider } from '@mui/material/styles';
+import theme from './theme/theme.ts';
+
 import { generateClient } from 'aws-amplify/api';
 import { Amplify } from 'aws-amplify';
 import { Authenticator, Button, Grid, Flex} from '@aws-amplify/ui-react';
@@ -43,7 +46,7 @@ export default function App() {
   }
 
   return (
-    <>
+    <ThemeProvider theme={theme}>
       <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100%' }}>
         <img src={titleImage} alt="Zones" style={{ width: '80%', maxWidth: '300px', margin: '20px auto' }} />
       </div>
@@ -69,6 +72,6 @@ export default function App() {
           </BrowserRouter>
         )}
       </Authenticator>
-    </>
+    </ThemeProvider>
   );
 };

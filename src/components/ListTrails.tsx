@@ -2,9 +2,10 @@ import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { generateClient } from 'aws-amplify/api';
 import { getZone, trailsByZoneIDAndTitle } from '../graphql/queries';
-import { updateTrail } from '../graphql/mutations'
-import { Card, Text, Divider, View, Breadcrumbs, Heading, Badge, SelectField, Accordion } from '@aws-amplify/ui-react';
+import { updateTrail } from '../graphql/mutations';
+import { Card, Typography, Breadcrumbs, Link, Divider, Accordion, AccordionSummary, AccordionDetails, Chip, FormControl, Select, MenuItem, InputLabel, Box } from '@mui/material';
 import { TrailsByZoneIDAndTitleQuery, GetZoneQuery } from '../API';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import MapComponent from './MapComponent';
 
 const client = generateClient();
@@ -55,7 +56,9 @@ function ListTrails() {
     }
   }
 
-  const getBadgeVariation = (status: string) => {
+
+
+  const getChipColor = (status: string) => {
     switch (status) {
       case 'Dry': return 'success';
       case 'Hero': return 'success';
@@ -65,95 +68,69 @@ function ListTrails() {
       default: return 'info';
     }
   };
-
-  const handleStatusChange = (trailId : string, newStatus : string) => {
-
-    console.log("here is the new Status", newStatus);
-    // Update the status in the local state
-    const updatedTrails = trails?.items.map(trail => {
-      if (trail?.id === trailId) {
-        updateTrailStatus(trailId, newStatus);
-        return { ...trail, status: newStatus };
-      }
-      return trail;
-    });
-    console.log("updated Trails", updatedTrails)
-  };
-  
-
   useEffect(() => {
     fetchTrails();
     getTrailTitle();
-  }, []);
+  }, []); 
 
   if (!trails) {
-    return <Text>Loading trails...</Text>;
+    return <Typography>Loading trails...</Typography>;
   }
 
-  
-return (
-  <Card variation="outlined">
-    <Breadcrumbs
-      items={[
-        {
-          href: '/',
-          label: 'Home',
-        },
-        {
-          href: `/zone/${zoneId}/`,
-          label: 'Zone',
-        },
-        {
-          label: 'Trail',
-        },
-      ]}
-    />
-    <Heading>{zone?.title} Trails</Heading>
-    <Divider orientation="horizontal" />
+  return (
+    <Box sx={{ width: '75%', margin: '0 auto' }}>
+      <Card variant="outlined">
+        <Breadcrumbs aria-label="breadcrumb" sx={{padding:"10px"}}>
+          <Link underline="hover" color="inherit" href="/">
+            Home
+          </Link>
+          <Link underline="hover" color="inherit" href={`/zone/${zoneId}/`}>
+            Zone
+          </Link>
+          <Typography color="textPrimary">Trails</Typography>
+        </Breadcrumbs>
+        <Typography sx={{padding:"10px 10px"}} variant="h5" component="div">{zone?.title} Trails</Typography>
+        <Divider />
 
-    {trails && trails.items.map((trail) => {
-        if (!trail ||!trail.coordinates) return null;
+        {trails.items.map((trail) => {
+          if (!trail ||!trail.coordinates) return null;
 
-        const sanitizedCoordinates = trail.coordinates
-        .filter(coord => coord !== null && Array.isArray(coord))
-        .map(coord =>
-            coord!.filter(point => typeof point === 'number')
-        ) as number[][];
-        
-        return (
-          <View key={trail.id}>
-            <Accordion allowMultiple
-              items={[
-                {
-                  trigger: (
-                    <Text><strong>{trail.title}</strong> - Status:  
-                      <Badge variation={getBadgeVariation(trail.status)}>{trail.status}</Badge>
-                    </Text>),
-                  value: 'statusChange',
-                  content: (
-                    <>
-                    <SelectField
-                      label={`Change ${trail.title} status`}
-                      aria-label={`Change ${trail.title} status`}
-                      defaultValue={trail.status}
-                      onChange={(e) => handleStatusChange(trail.id, e.target.value)}
-                    >
-                      {trailStatusOptions.map(status => (
-                        <option key={status} value={status}>{status}</option>
-                      ))}
-                    </SelectField>
-                    <MapComponent coordinates={sanitizedCoordinates} />
-                    </>
-                  )
-                }
-              ]}
-            />
-          </View>
-        );
-      })}
-  </Card>
-);
-  
+          const sanitizedCoordinates = trail.coordinates
+            .filter(coord => coord !== null && Array.isArray(coord))
+            .map(coord =>
+              coord!.filter(point => typeof point === 'number')
+          ) as number[][];
+
+          return (
+            <Accordion key={trail.id}>
+              <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+                <Typography sx={{display: 'flex', alignItems: 'center', gap:1.5}}><strong>{trail.title} </strong>   
+                  <Chip label={trail.status} color={getChipColor(trail.status)} />
+                </Typography>
+              </AccordionSummary>
+              <AccordionDetails>
+                <FormControl fullWidth>
+                  <InputLabel id={`${trail.title}-status-label`}>Change Status</InputLabel>
+                  <Select
+                    labelId={`${trail.title}-status-label`}
+                    value={trail.status}
+                    label="Change Status"
+                    onChange={(e) => updateTrailStatus(trail.id, e.target.value)}
+                  >
+                    {trailStatusOptions.map((status) => (
+                      <MenuItem key={status} value={status}>{status}</MenuItem>
+                    ))}
+                  </Select>
+                </FormControl>
+                <MapComponent status={trail.status} coordinates={sanitizedCoordinates} />
+              </AccordionDetails>
+            </Accordion>
+          );
+        })}
+      </Card>
+    </Box>
+  );
+
 }
 
 export default ListTrails;
