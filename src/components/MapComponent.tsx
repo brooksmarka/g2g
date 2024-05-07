@@ -93,7 +93,7 @@ const MapComponent = ({ status, coordinates }: MapComponentProps) => {
         };
     }, [coordinates]);
 
-    return <div id="map" ref={mapContainerRef} style={{ height: 500 }} />;
+    return <div className="map" id="map" ref={mapContainerRef} />;
 };
 
 export default MapComponent;

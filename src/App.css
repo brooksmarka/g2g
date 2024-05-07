@@ -14,3 +14,13 @@
 .amplify-tabs__item {
   color: #3c5c47 !important;
 }
+
+.map {
+  height: 700px;
+}
+
+@media (max-width: 750px){
+  .map {
+    height: 220px;
+  }
+}
