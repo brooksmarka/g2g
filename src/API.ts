@@ -85,9 +85,27 @@ export type Trail = {
   coordinates?: Array< Array< number | null > | null > | null,
   zone?: Zone | null,
   status: string,
+  updates?: ModelUpdateConnection | null,
   createdAt: string,
   updatedAt: string,
   zoneTrailsId?: string | null,
+};
+
+export type ModelUpdateConnection = {
+  __typename: "ModelUpdateConnection",
+  items:  Array<Update | null >,
+  nextToken?: string | null,
+};
+
+export type Update = {
+  __typename: "Update",
+  id: string,
+  trailID: string,
+  status: string,
+  timestamp: string,
+  trail?: Trail | null,
+  createdAt: string,
+  updatedAt: string,
 };
 
 export type UpdateZoneInput = {
@@ -164,6 +182,35 @@ export type DeleteTrailInput = {
   id: string,
 };
 
+export type CreateUpdateInput = {
+  id?: string | null,
+  trailID: string,
+  status: string,
+  timestamp: string,
+};
+
+export type ModelUpdateConditionInput = {
+  trailID?: ModelIDInput | null,
+  status?: ModelStringInput | null,
+  timestamp?: ModelStringInput | null,
+  and?: Array< ModelUpdateConditionInput | null > | null,
+  or?: Array< ModelUpdateConditionInput | null > | null,
+  not?: ModelUpdateConditionInput | null,
+  createdAt?: ModelStringInput | null,
+  updatedAt?: ModelStringInput | null,
+};
+
+export type UpdateUpdateInput = {
+  id: string,
+  trailID?: string | null,
+  status?: string | null,
+  timestamp?: string | null,
+};
+
+export type DeleteUpdateInput = {
+  id: string,
+};
+
 export type ModelZoneFilterInput = {
   id?: ModelIDInput | null,
   title?: ModelStringInput | null,
@@ -194,6 +241,18 @@ export type ModelTrailFilterInput = {
   or?: Array< ModelTrailFilterInput | null > | null,
   not?: ModelTrailFilterInput | null,
   zoneTrailsId?: ModelIDInput | null,
+};
+
+export type ModelUpdateFilterInput = {
+  id?: ModelIDInput | null,
+  trailID?: ModelIDInput | null,
+  status?: ModelStringInput | null,
+  timestamp?: ModelStringInput | null,
+  createdAt?: ModelStringInput | null,
+  updatedAt?: ModelStringInput | null,
+  and?: Array< ModelUpdateFilterInput | null > | null,
+  or?: Array< ModelUpdateFilterInput | null > | null,
+  not?: ModelUpdateFilterInput | null,
 };
 
 export type ModelStringKeyConditionInput = {
@@ -276,6 +335,17 @@ export type ModelSubscriptionFloatInput = {
   between?: Array< number | null > | null,
   in?: Array< number | null > | null,
   notIn?: Array< number | null > | null,
+};
+
+export type ModelSubscriptionUpdateFilterInput = {
+  id?: ModelSubscriptionIDInput | null,
+  trailID?: ModelSubscriptionIDInput | null,
+  status?: ModelSubscriptionStringInput | null,
+  timestamp?: ModelSubscriptionStringInput | null,
+  createdAt?: ModelSubscriptionStringInput | null,
+  updatedAt?: ModelSubscriptionStringInput | null,
+  and?: Array< ModelSubscriptionUpdateFilterInput | null > | null,
+  or?: Array< ModelSubscriptionUpdateFilterInput | null > | null,
 };
 
 export type CreateZoneMutationVariables = {
@@ -363,6 +433,10 @@ export type CreateTrailMutation = {
       updatedAt: string,
     } | null,
     status: string,
+    updates?:  {
+      __typename: "ModelUpdateConnection",
+      nextToken?: string | null,
+    } | null,
     createdAt: string,
     updatedAt: string,
     zoneTrailsId?: string | null,
@@ -391,6 +465,10 @@ export type UpdateTrailMutation = {
       updatedAt: string,
     } | null,
     status: string,
+    updates?:  {
+      __typename: "ModelUpdateConnection",
+      nextToken?: string | null,
+    } | null,
     createdAt: string,
     updatedAt: string,
     zoneTrailsId?: string | null,
@@ -419,9 +497,97 @@ export type DeleteTrailMutation = {
       updatedAt: string,
     } | null,
     status: string,
+    updates?:  {
+      __typename: "ModelUpdateConnection",
+      nextToken?: string | null,
+    } | null,
     createdAt: string,
     updatedAt: string,
     zoneTrailsId?: string | null,
+  } | null,
+};
+
+export type CreateUpdateMutationVariables = {
+  input: CreateUpdateInput,
+  condition?: ModelUpdateConditionInput | null,
+};
+
+export type CreateUpdateMutation = {
+  createUpdate?:  {
+    __typename: "Update",
+    id: string,
+    trailID: string,
+    status: string,
+    timestamp: string,
+    trail?:  {
+      __typename: "Trail",
+      id: string,
+      zoneID: string,
+      title: string,
+      coordinates?: Array< Array< number | null > | null > | null,
+      status: string,
+      createdAt: string,
+      updatedAt: string,
+      zoneTrailsId?: string | null,
+    } | null,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type UpdateUpdateMutationVariables = {
+  input: UpdateUpdateInput,
+  condition?: ModelUpdateConditionInput | null,
+};
+
+export type UpdateUpdateMutation = {
+  updateUpdate?:  {
+    __typename: "Update",
+    id: string,
+    trailID: string,
+    status: string,
+    timestamp: string,
+    trail?:  {
+      __typename: "Trail",
+      id: string,
+      zoneID: string,
+      title: string,
+      coordinates?: Array< Array< number | null > | null > | null,
+      status: string,
+      createdAt: string,
+      updatedAt: string,
+      zoneTrailsId?: string | null,
+    } | null,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type DeleteUpdateMutationVariables = {
+  input: DeleteUpdateInput,
+  condition?: ModelUpdateConditionInput | null,
+};
+
+export type DeleteUpdateMutation = {
+  deleteUpdate?:  {
+    __typename: "Update",
+    id: string,
+    trailID: string,
+    status: string,
+    timestamp: string,
+    trail?:  {
+      __typename: "Trail",
+      id: string,
+      zoneID: string,
+      title: string,
+      coordinates?: Array< Array< number | null > | null > | null,
+      status: string,
+      createdAt: string,
+      updatedAt: string,
+      zoneTrailsId?: string | null,
+    } | null,
+    createdAt: string,
+    updatedAt: string,
   } | null,
 };
 
@@ -488,6 +654,10 @@ export type GetTrailQuery = {
       updatedAt: string,
     } | null,
     status: string,
+    updates?:  {
+      __typename: "ModelUpdateConnection",
+      nextToken?: string | null,
+    } | null,
     createdAt: string,
     updatedAt: string,
     zoneTrailsId?: string | null,
@@ -518,6 +688,55 @@ export type ListTrailsQuery = {
   } | null,
 };
 
+export type GetUpdateQueryVariables = {
+  id: string,
+};
+
+export type GetUpdateQuery = {
+  getUpdate?:  {
+    __typename: "Update",
+    id: string,
+    trailID: string,
+    status: string,
+    timestamp: string,
+    trail?:  {
+      __typename: "Trail",
+      id: string,
+      zoneID: string,
+      title: string,
+      coordinates?: Array< Array< number | null > | null > | null,
+      status: string,
+      createdAt: string,
+      updatedAt: string,
+      zoneTrailsId?: string | null,
+    } | null,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type ListUpdatesQueryVariables = {
+  filter?: ModelUpdateFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type ListUpdatesQuery = {
+  listUpdates?:  {
+    __typename: "ModelUpdateConnection",
+    items:  Array< {
+      __typename: "Update",
+      id: string,
+      trailID: string,
+      status: string,
+      timestamp: string,
+      createdAt: string,
+      updatedAt: string,
+    } | null >,
+    nextToken?: string | null,
+  } | null,
+};
+
 export type TrailsByZoneIDAndTitleQueryVariables = {
   zoneID: string,
   title?: ModelStringKeyConditionInput | null,
@@ -540,6 +759,31 @@ export type TrailsByZoneIDAndTitleQuery = {
       createdAt: string,
       updatedAt: string,
       zoneTrailsId?: string | null,
+    } | null >,
+    nextToken?: string | null,
+  } | null,
+};
+
+export type UpdatesByTrailIDAndTimestampQueryVariables = {
+  trailID: string,
+  timestamp?: ModelStringKeyConditionInput | null,
+  sortDirection?: ModelSortDirection | null,
+  filter?: ModelUpdateFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type UpdatesByTrailIDAndTimestampQuery = {
+  updatesByTrailIDAndTimestamp?:  {
+    __typename: "ModelUpdateConnection",
+    items:  Array< {
+      __typename: "Update",
+      id: string,
+      trailID: string,
+      status: string,
+      timestamp: string,
+      createdAt: string,
+      updatedAt: string,
     } | null >,
     nextToken?: string | null,
   } | null,
@@ -626,6 +870,10 @@ export type OnCreateTrailSubscription = {
       updatedAt: string,
     } | null,
     status: string,
+    updates?:  {
+      __typename: "ModelUpdateConnection",
+      nextToken?: string | null,
+    } | null,
     createdAt: string,
     updatedAt: string,
     zoneTrailsId?: string | null,
@@ -653,6 +901,10 @@ export type OnUpdateTrailSubscription = {
       updatedAt: string,
     } | null,
     status: string,
+    updates?:  {
+      __typename: "ModelUpdateConnection",
+      nextToken?: string | null,
+    } | null,
     createdAt: string,
     updatedAt: string,
     zoneTrailsId?: string | null,
@@ -680,8 +932,93 @@ export type OnDeleteTrailSubscription = {
       updatedAt: string,
     } | null,
     status: string,
+    updates?:  {
+      __typename: "ModelUpdateConnection",
+      nextToken?: string | null,
+    } | null,
     createdAt: string,
     updatedAt: string,
     zoneTrailsId?: string | null,
+  } | null,
+};
+
+export type OnCreateUpdateSubscriptionVariables = {
+  filter?: ModelSubscriptionUpdateFilterInput | null,
+};
+
+export type OnCreateUpdateSubscription = {
+  onCreateUpdate?:  {
+    __typename: "Update",
+    id: string,
+    trailID: string,
+    status: string,
+    timestamp: string,
+    trail?:  {
+      __typename: "Trail",
+      id: string,
+      zoneID: string,
+      title: string,
+      coordinates?: Array< Array< number | null > | null > | null,
+      status: string,
+      createdAt: string,
+      updatedAt: string,
+      zoneTrailsId?: string | null,
+    } | null,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type OnUpdateUpdateSubscriptionVariables = {
+  filter?: ModelSubscriptionUpdateFilterInput | null,
+};
+
+export type OnUpdateUpdateSubscription = {
+  onUpdateUpdate?:  {
+    __typename: "Update",
+    id: string,
+    trailID: string,
+    status: string,
+    timestamp: string,
+    trail?:  {
+      __typename: "Trail",
+      id: string,
+      zoneID: string,
+      title: string,
+      coordinates?: Array< Array< number | null > | null > | null,
+      status: string,
+      createdAt: string,
+      updatedAt: string,
+      zoneTrailsId?: string | null,
+    } | null,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type OnDeleteUpdateSubscriptionVariables = {
+  filter?: ModelSubscriptionUpdateFilterInput | null,
+};
+
+export type OnDeleteUpdateSubscription = {
+  onDeleteUpdate?:  {
+    __typename: "Update",
+    id: string,
+    trailID: string,
+    status: string,
+    timestamp: string,
+    trail?:  {
+      __typename: "Trail",
+      id: string,
+      zoneID: string,
+      title: string,
+      coordinates?: Array< Array< number | null > | null > | null,
+      status: string,
+      createdAt: string,
+      updatedAt: string,
+      zoneTrailsId?: string | null,
+    } | null,
+    createdAt: string,
+    updatedAt: string,
   } | null,
 };
