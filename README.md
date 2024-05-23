@@ -1,3 +1,5 @@
+![Screenshot 2024-05-23 at 3 33 08 PM](https://github.com/brooksmarka/g2g/assets/20527972/7c88b194-2f8f-48cf-ba4e-f5e65777ebbe)
+
 # g2g
 
 An application to let users share trail status
