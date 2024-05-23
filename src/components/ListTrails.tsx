@@ -56,8 +56,6 @@ function ListTrails() {
     }
   }
 
-
-
   const getChipColor = (status: string) => {
     switch (status) {
       case 'Dry': return 'success';
@@ -66,6 +64,27 @@ function ListTrails() {
       case 'Mud': return 'error';
       // Other cases
       default: return 'info';
+    }
+  };
+
+  const formatDate = (updatedAt) => {
+    const date = new Date(updatedAt);
+    const now = new Date();
+    const differenceInMilliseconds = now - date;
+
+    const differenceInMinutes = Math.floor(differenceInMilliseconds / (1000 * 60));
+    const differenceInHours = Math.floor(differenceInMilliseconds / (1000 * 60 * 60));
+    const differenceInDays = Math.floor(differenceInMilliseconds / (1000 * 60 * 60 * 24));
+    const differenceInYears = now.getFullYear() - date.getFullYear();
+
+    if (differenceInMinutes < 60) {
+      return `${differenceInMinutes} minutes ago`;
+    } else if (differenceInHours < 24) {
+      return `${differenceInHours} hours ago`;
+    } else if (differenceInDays < 365) {
+      return `${differenceInDays} days ago`;
+    } else {
+      return `${differenceInYears} years ago`;
     }
   };
   useEffect(() => {
@@ -107,6 +126,9 @@ function ListTrails() {
                 <Typography sx={{display: 'flex', alignItems: 'center', gap:1.5}}><strong>{trail.title} </strong>   
                   <Chip label={trail.status} color={getChipColor(trail.status)} />
                 </Typography>
+                <Typography sx={{ fontSize: '0.875rem', marginTop: '0.3rem', marginLeft: '0.5rem' }}>
+                  {formatDate(trail.updatedAt)}
+              </Typography>
               </AccordionSummary>
               <AccordionDetails>
                 <FormControl fullWidth>

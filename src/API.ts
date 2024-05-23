@@ -176,6 +176,12 @@ export type ModelZoneFilterInput = {
   not?: ModelZoneFilterInput | null,
 };
 
+export enum ModelSortDirection {
+  ASC = "ASC",
+  DESC = "DESC",
+}
+
+
 export type ModelZoneConnection = {
   __typename: "ModelZoneConnection",
   items:  Array<Zone | null >,
@@ -205,12 +211,6 @@ export type ModelStringKeyConditionInput = {
   between?: Array< string | null > | null,
   beginsWith?: string | null,
 };
-
-export enum ModelSortDirection {
-  ASC = "ASC",
-  DESC = "DESC",
-}
-
 
 export type ModelSubscriptionZoneFilterInput = {
   id?: ModelSubscriptionIDInput | null,
@@ -446,9 +446,11 @@ export type GetZoneQuery = {
 };
 
 export type ListZonesQueryVariables = {
+  id?: string | null,
   filter?: ModelZoneFilterInput | null,
   limit?: number | null,
   nextToken?: string | null,
+  sortDirection?: ModelSortDirection | null,
 };
 
 export type ListZonesQuery = {
@@ -495,9 +497,11 @@ export type GetTrailQuery = {
 };
 
 export type ListTrailsQueryVariables = {
+  id?: string | null,
   filter?: ModelTrailFilterInput | null,
   limit?: number | null,
   nextToken?: string | null,
+  sortDirection?: ModelSortDirection | null,
 };
 
 export type ListTrailsQuery = {

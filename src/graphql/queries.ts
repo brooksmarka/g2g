@@ -25,11 +25,19 @@ export const getZone = /* GraphQL */ `query GetZone($id: ID!) {
 }
 ` as GeneratedQuery<APITypes.GetZoneQueryVariables, APITypes.GetZoneQuery>;
 export const listZones = /* GraphQL */ `query ListZones(
+  $id: ID
   $filter: ModelZoneFilterInput
   $limit: Int
   $nextToken: String
+  $sortDirection: ModelSortDirection
 ) {
-  listZones(filter: $filter, limit: $limit, nextToken: $nextToken) {
+  listZones(
+    id: $id
+    filter: $filter
+    limit: $limit
+    nextToken: $nextToken
+    sortDirection: $sortDirection
+  ) {
     items {
       id
       title
@@ -68,11 +76,19 @@ export const getTrail = /* GraphQL */ `query GetTrail($id: ID!) {
 }
 ` as GeneratedQuery<APITypes.GetTrailQueryVariables, APITypes.GetTrailQuery>;
 export const listTrails = /* GraphQL */ `query ListTrails(
+  $id: ID
   $filter: ModelTrailFilterInput
   $limit: Int
   $nextToken: String
+  $sortDirection: ModelSortDirection
 ) {
-  listTrails(filter: $filter, limit: $limit, nextToken: $nextToken) {
+  listTrails(
+    id: $id
+    filter: $filter
+    limit: $limit
+    nextToken: $nextToken
+    sortDirection: $sortDirection
+  ) {
     items {
       id
       zoneID
