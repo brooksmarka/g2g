@@ -81,10 +81,6 @@ export const onCreateTrail = /* GraphQL */ `subscription OnCreateTrail($filter: 
       __typename
     }
     status
-    updates {
-      nextToken
-      __typename
-    }
     createdAt
     updatedAt
     zoneTrailsId
@@ -111,10 +107,6 @@ export const onUpdateTrail = /* GraphQL */ `subscription OnUpdateTrail($filter: 
       __typename
     }
     status
-    updates {
-      nextToken
-      __typename
-    }
     createdAt
     updatedAt
     zoneTrailsId
@@ -141,10 +133,6 @@ export const onDeleteTrail = /* GraphQL */ `subscription OnDeleteTrail($filter: 
       __typename
     }
     status
-    updates {
-      nextToken
-      __typename
-    }
     createdAt
     updatedAt
     zoneTrailsId
@@ -154,82 +142,4 @@ export const onDeleteTrail = /* GraphQL */ `subscription OnDeleteTrail($filter: 
 ` as GeneratedSubscription<
   APITypes.OnDeleteTrailSubscriptionVariables,
   APITypes.OnDeleteTrailSubscription
->;
-export const onCreateUpdate = /* GraphQL */ `subscription OnCreateUpdate($filter: ModelSubscriptionUpdateFilterInput) {
-  onCreateUpdate(filter: $filter) {
-    id
-    trailID
-    status
-    timestamp
-    trail {
-      id
-      zoneID
-      title
-      coordinates
-      status
-      createdAt
-      updatedAt
-      zoneTrailsId
-      __typename
-    }
-    createdAt
-    updatedAt
-    __typename
-  }
-}
-` as GeneratedSubscription<
-  APITypes.OnCreateUpdateSubscriptionVariables,
-  APITypes.OnCreateUpdateSubscription
->;
-export const onUpdateUpdate = /* GraphQL */ `subscription OnUpdateUpdate($filter: ModelSubscriptionUpdateFilterInput) {
-  onUpdateUpdate(filter: $filter) {
-    id
-    trailID
-    status
-    timestamp
-    trail {
-      id
-      zoneID
-      title
-      coordinates
-      status
-      createdAt
-      updatedAt
-      zoneTrailsId
-      __typename
-    }
-    createdAt
-    updatedAt
-    __typename
-  }
-}
-` as GeneratedSubscription<
-  APITypes.OnUpdateUpdateSubscriptionVariables,
-  APITypes.OnUpdateUpdateSubscription
->;
-export const onDeleteUpdate = /* GraphQL */ `subscription OnDeleteUpdate($filter: ModelSubscriptionUpdateFilterInput) {
-  onDeleteUpdate(filter: $filter) {
-    id
-    trailID
-    status
-    timestamp
-    trail {
-      id
-      zoneID
-      title
-      coordinates
-      status
-      createdAt
-      updatedAt
-      zoneTrailsId
-      __typename
-    }
-    createdAt
-    updatedAt
-    __typename
-  }
-}
-` as GeneratedSubscription<
-  APITypes.OnDeleteUpdateSubscriptionVariables,
-  APITypes.OnDeleteUpdateSubscription
 >;

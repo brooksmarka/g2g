@@ -17,13 +17,4 @@ type Trail @model {
   coordinates: [[Float]]
   zone: Zone @belongsTo(fields: ["zoneID"])
   status: String!
-  updates: [Update] @hasMany(indexName: "byTrail", fields: ["id"])
-}
-
-type Update @model @auth(rules: [{ allow: public }]) {
-  id: ID!
-  trailID: ID! @index(name: "byTrail", sortKeyFields: ["timestamp"])
-  status: String!
-  timestamp: AWSDateTime!
-  trail: Trail @belongsTo(fields: ["trailID"])
 }
