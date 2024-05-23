@@ -93,10 +93,6 @@ export const createTrail = /* GraphQL */ `mutation CreateTrail(
       __typename
     }
     status
-    updates {
-      nextToken
-      __typename
-    }
     createdAt
     updatedAt
     zoneTrailsId
@@ -126,10 +122,6 @@ export const updateTrail = /* GraphQL */ `mutation UpdateTrail(
       __typename
     }
     status
-    updates {
-      nextToken
-      __typename
-    }
     createdAt
     updatedAt
     zoneTrailsId
@@ -159,10 +151,6 @@ export const deleteTrail = /* GraphQL */ `mutation DeleteTrail(
       __typename
     }
     status
-    updates {
-      nextToken
-      __typename
-    }
     createdAt
     updatedAt
     zoneTrailsId
@@ -172,91 +160,4 @@ export const deleteTrail = /* GraphQL */ `mutation DeleteTrail(
 ` as GeneratedMutation<
   APITypes.DeleteTrailMutationVariables,
   APITypes.DeleteTrailMutation
->;
-export const createUpdate = /* GraphQL */ `mutation CreateUpdate(
-  $input: CreateUpdateInput!
-  $condition: ModelUpdateConditionInput
-) {
-  createUpdate(input: $input, condition: $condition) {
-    id
-    trailID
-    status
-    timestamp
-    trail {
-      id
-      zoneID
-      title
-      coordinates
-      status
-      createdAt
-      updatedAt
-      zoneTrailsId
-      __typename
-    }
-    createdAt
-    updatedAt
-    __typename
-  }
-}
-` as GeneratedMutation<
-  APITypes.CreateUpdateMutationVariables,
-  APITypes.CreateUpdateMutation
->;
-export const updateUpdate = /* GraphQL */ `mutation UpdateUpdate(
-  $input: UpdateUpdateInput!
-  $condition: ModelUpdateConditionInput
-) {
-  updateUpdate(input: $input, condition: $condition) {
-    id
-    trailID
-    status
-    timestamp
-    trail {
-      id
-      zoneID
-      title
-      coordinates
-      status
-      createdAt
-      updatedAt
-      zoneTrailsId
-      __typename
-    }
-    createdAt
-    updatedAt
-    __typename
-  }
-}
-` as GeneratedMutation<
-  APITypes.UpdateUpdateMutationVariables,
-  APITypes.UpdateUpdateMutation
->;
-export const deleteUpdate = /* GraphQL */ `mutation DeleteUpdate(
-  $input: DeleteUpdateInput!
-  $condition: ModelUpdateConditionInput
-) {
-  deleteUpdate(input: $input, condition: $condition) {
-    id
-    trailID
-    status
-    timestamp
-    trail {
-      id
-      zoneID
-      title
-      coordinates
-      status
-      createdAt
-      updatedAt
-      zoneTrailsId
-      __typename
-    }
-    createdAt
-    updatedAt
-    __typename
-  }
-}
-` as GeneratedMutation<
-  APITypes.DeleteUpdateMutationVariables,
-  APITypes.DeleteUpdateMutation
 >;

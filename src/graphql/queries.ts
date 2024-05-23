@@ -60,10 +60,6 @@ export const getTrail = /* GraphQL */ `query GetTrail($id: ID!) {
       __typename
     }
     status
-    updates {
-      nextToken
-      __typename
-    }
     createdAt
     updatedAt
     zoneTrailsId
@@ -95,52 +91,6 @@ export const listTrails = /* GraphQL */ `query ListTrails(
 ` as GeneratedQuery<
   APITypes.ListTrailsQueryVariables,
   APITypes.ListTrailsQuery
->;
-export const getUpdate = /* GraphQL */ `query GetUpdate($id: ID!) {
-  getUpdate(id: $id) {
-    id
-    trailID
-    status
-    timestamp
-    trail {
-      id
-      zoneID
-      title
-      coordinates
-      status
-      createdAt
-      updatedAt
-      zoneTrailsId
-      __typename
-    }
-    createdAt
-    updatedAt
-    __typename
-  }
-}
-` as GeneratedQuery<APITypes.GetUpdateQueryVariables, APITypes.GetUpdateQuery>;
-export const listUpdates = /* GraphQL */ `query ListUpdates(
-  $filter: ModelUpdateFilterInput
-  $limit: Int
-  $nextToken: String
-) {
-  listUpdates(filter: $filter, limit: $limit, nextToken: $nextToken) {
-    items {
-      id
-      trailID
-      status
-      timestamp
-      createdAt
-      updatedAt
-      __typename
-    }
-    nextToken
-    __typename
-  }
-}
-` as GeneratedQuery<
-  APITypes.ListUpdatesQueryVariables,
-  APITypes.ListUpdatesQuery
 >;
 export const trailsByZoneIDAndTitle = /* GraphQL */ `query TrailsByZoneIDAndTitle(
   $zoneID: ID!
@@ -176,37 +126,4 @@ export const trailsByZoneIDAndTitle = /* GraphQL */ `query TrailsByZoneIDAndTitl
 ` as GeneratedQuery<
   APITypes.TrailsByZoneIDAndTitleQueryVariables,
   APITypes.TrailsByZoneIDAndTitleQuery
->;
-export const updatesByTrailIDAndTimestamp = /* GraphQL */ `query UpdatesByTrailIDAndTimestamp(
-  $trailID: ID!
-  $timestamp: ModelStringKeyConditionInput
-  $sortDirection: ModelSortDirection
-  $filter: ModelUpdateFilterInput
-  $limit: Int
-  $nextToken: String
-) {
-  updatesByTrailIDAndTimestamp(
-    trailID: $trailID
-    timestamp: $timestamp
-    sortDirection: $sortDirection
-    filter: $filter
-    limit: $limit
-    nextToken: $nextToken
-  ) {
-    items {
-      id
-      trailID
-      status
-      timestamp
-      createdAt
-      updatedAt
-      __typename
-    }
-    nextToken
-    __typename
-  }
-}
-` as GeneratedQuery<
-  APITypes.UpdatesByTrailIDAndTimestampQueryVariables,
-  APITypes.UpdatesByTrailIDAndTimestampQuery
 >;
