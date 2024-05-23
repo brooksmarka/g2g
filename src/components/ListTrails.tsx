@@ -67,10 +67,10 @@ function ListTrails() {
     }
   };
 
-  const formatDate = (updatedAt) => {
-    const date = new Date(updatedAt);
-    const now = new Date();
-    const differenceInMilliseconds = now - date;
+  const formatDate = (updatedAt: string) => {
+    const date: Date = new Date(updatedAt);
+    const now: Date = new Date();
+    const differenceInMilliseconds: number = now.getTime() - date.getTime();
 
     const differenceInMinutes = Math.floor(differenceInMilliseconds / (1000 * 60));
     const differenceInHours = Math.floor(differenceInMilliseconds / (1000 * 60 * 60));
