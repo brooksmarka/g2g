@@ -41,7 +41,7 @@ export default function App() {
       const zones = zoneData.data.listZones.items;
       setZones(zones);
     } catch (err) {
-      console.log('error fetching zones');
+      console.log('error fetching zones', err);
     }
   }
 
