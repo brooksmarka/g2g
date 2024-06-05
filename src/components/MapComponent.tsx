@@ -91,7 +91,7 @@ const MapComponent = ({ status, coordinates }: MapComponentProps) => {
                 mapRef.current = null;
             }
         };
-    }, [coordinates]);
+    }, [status, coordinates]);
 
     return <div className="map" id="map" ref={mapContainerRef} />;
 };

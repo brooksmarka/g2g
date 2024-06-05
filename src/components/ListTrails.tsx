@@ -1,17 +1,17 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import { useParams } from 'react-router-dom';
 import { generateClient } from 'aws-amplify/api';
 import { getZone, trailsByZoneIDAndTitle } from '../graphql/queries';
 import { updateTrail } from '../graphql/mutations';
-import { Card, Typography, Breadcrumbs, Link, Divider, Accordion, AccordionSummary, AccordionDetails, Chip, FormControl, Select, MenuItem, InputLabel, Box } from '@mui/material';
+import { Card, Typography, Breadcrumbs, Link, Divider, Box } from '@mui/material';
 import { TrailsByZoneIDAndTitleQuery, GetZoneQuery } from '../API';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import MapComponent from './MapComponent';
+import TrailComponent  from './TrailComponent';
+
 
 const client = generateClient();
 
 function ListTrails() {
-  const {zoneId } = useParams<{ zoneId: string }>();
+  const { zoneId } = useParams<{ zoneId: string }>();
   const safeZoneId = zoneId || '0';
 
   const trailStatusOptions = ['Dry', 'Hero', 'Snow', 'Mud'];
@@ -19,7 +19,7 @@ function ListTrails() {
   const [trails, setTrails] = useState<TrailsByZoneIDAndTitleQuery["trailsByZoneIDAndTitle"] | null>(null);
   const [zone, setZone] = useState<GetZoneQuery["getZone"] | null>(null);
 
-  async function fetchTrails() {
+  const fetchTrails = useCallback(async () => {
     try {
       const response = await client.graphql({
         query: trailsByZoneIDAndTitle,
@@ -29,9 +29,9 @@ function ListTrails() {
     } catch (err) {
       console.error('Error fetching trail details:', err);
     }
-  }
+  }, [safeZoneId]);
 
-  async function getTrailTitle() {
+  const getTrailTitle = useCallback(async () => {
     try {
       const response = await client.graphql({
         query: getZone,
@@ -39,24 +39,33 @@ function ListTrails() {
       });
       setZone(response.data.getZone);
     } catch (err) {
-      console.error('Error fetching trail title: ', err)
+      console.error('Error fetching trail title: ', err);
     }
-  }
+  }, [safeZoneId]);
 
-  async function updateTrailStatus(trailId: string, newStatus: string) {
+  const updateTrailStatus = useCallback(async (trailId: string, newStatus: string) => {
     try {
+      const updatedAt = new Date().toISOString();
       await client.graphql({
         query: updateTrail,
         variables: { input: { id: trailId, status: newStatus } },
       });
-      //TODO: look into making a subscription to change automatically instead of refetch
-      fetchTrails();
+      setTrails((prevTrails) => {
+        if (!prevTrails) return prevTrails;
+        const updatedTrails = prevTrails.items.map((trail) => {
+          if (trail?.id === trailId) {
+            return { ...trail, status: newStatus, updatedAt };
+          }
+          return trail;
+        });
+        return { ...prevTrails, items: updatedTrails };
+      });
     } catch (err) {
       console.error('Error updating trail status: ', err);
     }
-  }
+  }, []);
 
-  const getChipColor = (status: string) => {
+  const getChipColor = useCallback((status: string) => {
     switch (status) {
       case 'Dry': return 'success';
       case 'Hero': return 'success';
@@ -65,9 +74,9 @@ function ListTrails() {
       // Other cases
       default: return 'info';
     }
-  };
+  }, []);
 
-  const formatDate = (updatedAt: string) => {
+  const formatDate = useCallback((updatedAt: string) => {
     const date: Date = new Date(updatedAt);
     const now: Date = new Date();
     const differenceInMilliseconds: number = now.getTime() - date.getTime();
@@ -86,11 +95,12 @@ function ListTrails() {
     } else {
       return `${differenceInYears} years ago`;
     }
-  };
+  }, []);
+
   useEffect(() => {
     fetchTrails();
     getTrailTitle();
-  }, []); 
+  }, [fetchTrails, getTrailTitle]);
 
   if (!trails) {
     return <Typography>Loading trails...</Typography>;
@@ -99,7 +109,7 @@ function ListTrails() {
   return (
     <Box sx={{ width: '75%', margin: '0 auto' }}>
       <Card variant="outlined">
-        <Breadcrumbs aria-label="breadcrumb" sx={{padding:"10px"}}>
+        <Breadcrumbs aria-label="breadcrumb" sx={{ padding: "10px" }}>
           <Link underline="hover" color="inherit" href="/">
             Home
           </Link>
@@ -108,51 +118,26 @@ function ListTrails() {
           </Link>
           <Typography color="textPrimary">Trails</Typography>
         </Breadcrumbs>
-        <Typography sx={{padding:"10px 10px"}} variant="h5" component="div">{zone?.title} Trails</Typography>
+        <Typography sx={{ padding: "10px 10px" }} variant="h5" component="div">{zone?.title} Trails</Typography>
         <Divider />
 
         {trails.items.map((trail) => {
-          if (!trail ||!trail.coordinates) return null;
-
-          const sanitizedCoordinates = trail.coordinates
-            .filter(coord => coord !== null && Array.isArray(coord))
-            .map(coord =>
-              coord!.filter(point => typeof point === 'number')
-          ) as number[][];
+          if (!trail || !trail.coordinates) return null;
 
           return (
-            <Accordion key={trail.id}>
-              <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-                <Typography sx={{display: 'flex', alignItems: 'center', gap:1.5}}><strong>{trail.title} </strong>   
-                  <Chip label={trail.status} color={getChipColor(trail.status)} />
-                </Typography>
-                <Typography sx={{ fontSize: '0.875rem', marginTop: '0.3rem', marginLeft: '0.5rem' }}>
-                  {formatDate(trail.updatedAt)}
-              </Typography>
-              </AccordionSummary>
-              <AccordionDetails>
-                <FormControl fullWidth>
-                  <InputLabel id={`${trail.title}-status-label`}>Change Status</InputLabel>
-                  <Select
-                    labelId={`${trail.title}-status-label`}
-                    value={trail.status}
-                    label="Change Status"
-                    onChange={(e) => updateTrailStatus(trail.id, e.target.value)}
-                  >
-                    {trailStatusOptions.map((status) => (
-                      <MenuItem key={status} value={status}>{status}</MenuItem>
-                    ))}
-                  </Select>
-                </FormControl>
-                <MapComponent status={trail.status} coordinates={sanitizedCoordinates} />
-              </AccordionDetails>
-            </Accordion>
+            <TrailComponent
+              key={trail.id}
+              trail={trail}
+              trailStatusOptions={trailStatusOptions}
+              updateTrailStatus={updateTrailStatus}
+              getChipColor={getChipColor}
+              formatDate={formatDate}
+            />
           );
         })}
       </Card>
     </Box>
   );
-
 }
 
 export default ListTrails;
