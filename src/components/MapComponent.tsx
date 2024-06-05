@@ -40,7 +40,6 @@ const MapComponent = ({ status, coordinates }: MapComponentProps) => {
     }
 
     useEffect(() => {
-        console.log('MapComponent re-rendered with status:', status, 'and coordinates:', coordinates);
         if (!mapRef.current && mapContainerRef.current) {
             mapRef.current = new mapboxgl.Map({
                 container: mapContainerRef.current,
