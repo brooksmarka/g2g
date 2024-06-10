@@ -113,9 +113,6 @@ function ListTrails() {
           <Link underline="hover" color="inherit" href="/">
             Home
           </Link>
-          <Link underline="hover" color="inherit" href={`/zone/${zoneId}/`}>
-            Zone
-          </Link>
           <Typography color="textPrimary">Trails</Typography>
         </Breadcrumbs>
         <Typography sx={{ padding: "10px 10px" }} variant="h5" component="div">{zone?.title} Trails</Typography>

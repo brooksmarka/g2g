@@ -1,15 +1,14 @@
 import { useEffect, useState } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { generateClient } from 'aws-amplify/api';
 import { getZone, trailsByZoneIDAndTitle } from '../graphql/queries';
-import { Typography, Card, CardContent, Button, Breadcrumbs, Link as MuiLink, Chip } from '@mui/material';
-import { GetZoneQuery, TrailsByZoneIDAndTitleQuery } from '../API'; // Import the generated type for GetZoneQuery
+import { Typography, Card, CardContent, Button, Chip, Box } from '@mui/material';
+import { GetZoneQuery, TrailsByZoneIDAndTitleQuery } from '../API';
 
 const client = generateClient();
 
-function ZoneDetail() {
-  const { zoneId } = useParams<{ zoneId: string }>();
-  const safeZoneId = zoneId || '0';
+const ZoneDetail = ({ id }: { id: string }) => {
+  const safeZoneId = id || '0';
 
   const [trails, setTrails] = useState<TrailsByZoneIDAndTitleQuery["trailsByZoneIDAndTitle"] | null>(null);
   const [zone, setZone] = useState<GetZoneQuery["getZone"] | null>(null);
@@ -41,7 +40,7 @@ function ZoneDetail() {
   useEffect(() => {
     fetchTrails();
     fetchZoneDetail();
-  }, [zoneId]);
+  }, [safeZoneId]);
 
   const renderCorrectBadge = () => {
     if (!trails) return <Chip label="Loading..." color="warning" />;
@@ -72,26 +71,20 @@ function ZoneDetail() {
   }
 
   return (
-    <Card variant="outlined" sx={{ width: '75%', margin: '0 auto', maxWidth: 1280 }}>
+    <Card sx={{ maxWidth: 1280, width: '100%', backgroundColor: '#f5f5f5' }}>
       <CardContent>
-        <Breadcrumbs aria-label="breadcrumb">
-          <MuiLink component={Link} color="inherit" to="/">
-            Home
-          </MuiLink>
-          <MuiLink component={Link} color="inherit" to={`/zone/${zoneId}/`}>
-            Zone
-          </MuiLink>
-        </Breadcrumbs>
         <Typography variant="h5" component="div" gutterBottom>
           {zone.title}
         </Typography>
         <Typography color="textSecondary">
           {zone.description}
         </Typography>
-        <Typography sx={{marginTop: '15px'}}>
-          Current Status: {renderCorrectBadge()}
-        </Typography>
-        <Button sx={{marginTop: '15px', '&:hover': {backgroundColor: '#0a2623',}}}variant="contained" component={Link} to={`/zone/${zoneId}/trails`}>
+        <Box sx={{ marginTop: '15px' }}>
+          <Typography component="div">
+            Current Status: {renderCorrectBadge()}
+          </Typography>
+        </Box>
+        <Button sx={{ marginTop: '15px', '&:hover': { backgroundColor: '#0a2623' } }} variant="contained" component={Link} to={`/zone/${safeZoneId}/trails`}>
           View Trail Status
         </Button>
       </CardContent>
