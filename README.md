@@ -1,8 +1,10 @@
-![Screenshot 2024-05-23 at 3 33 08 PM](https://github.com/brooksmarka/g2g/assets/20527972/7c88b194-2f8f-48cf-ba4e-f5e65777ebbe)
 
-# g2g
+# Mud Or Hero
 
-An application to let users share trail status
+![Screenshot 2024-06-12 at 12 04 44 PM](https://github.com/brooksmarka/g2g/assets/20527972/cb8fb2d7-4e03-41bf-88c9-705b5355fa49)
+
+
+A place to update and share trail status
 
 ## Development Workflow
 
