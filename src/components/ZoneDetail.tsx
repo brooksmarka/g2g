@@ -1,17 +1,18 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
+import { useAtom } from 'jotai';
+import { trailsAtom, zoneAtom } from '../state';
 import { Link } from 'react-router-dom';
 import { generateClient } from 'aws-amplify/api';
 import { getZone, trailsByZoneIDAndTitle } from '../graphql/queries';
 import { Typography, Card, CardContent, Button, Chip, Box } from '@mui/material';
-import { GetZoneQuery, TrailsByZoneIDAndTitleQuery } from '../API';
 
 const client = generateClient();
 
 const ZoneDetail = ({ id }: { id: string }) => {
   const safeZoneId = id || '0';
 
-  const [trails, setTrails] = useState<TrailsByZoneIDAndTitleQuery["trailsByZoneIDAndTitle"] | null>(null);
-  const [zone, setZone] = useState<GetZoneQuery["getZone"] | null>(null);
+  const [trails, setTrails] = useAtom(trailsAtom);
+  const [zone, setZone] = useAtom(zoneAtom);
 
   async function fetchTrails() {
     try {

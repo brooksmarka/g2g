@@ -4,7 +4,8 @@ import { generateClient } from 'aws-amplify/api';
 import { getZone, trailsByZoneIDAndTitle } from '../graphql/queries';
 import { updateTrail } from '../graphql/mutations';
 import { Card, Typography, Breadcrumbs, Link, Divider, Box } from '@mui/material';
-import { TrailsByZoneIDAndTitleQuery, GetZoneQuery } from '../API';
+import { useAtom } from 'jotai';
+import { trailsAtom, zoneAtom } from '../state';
 import TrailComponent  from './TrailComponent';
 
 
@@ -16,8 +17,8 @@ function ListTrails() {
 
   const trailStatusOptions = ['Dry', 'Hero', 'Snow', 'Mud'];
 
-  const [trails, setTrails] = useState<TrailsByZoneIDAndTitleQuery["trailsByZoneIDAndTitle"] | null>(null);
-  const [zone, setZone] = useState<GetZoneQuery["getZone"] | null>(null);
+  const [trails, setTrails] = useAtom(trailsAtom);
+  const [zone, setZone] = useAtom(zoneAtom);
 
   const fetchTrails = useCallback(async () => {
     try {

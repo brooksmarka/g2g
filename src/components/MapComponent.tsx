@@ -7,7 +7,8 @@ if (typeof token === 'undefined') {
     throw new Error("Mapbox access token is undefined");
 }
 mapboxgl.accessToken = token;
-type Coordinates = number[][];
+
+export type Coordinates = number[][];
 
 interface MapComponentProps {
     coordinates: Coordinates;

@@ -1,6 +1,7 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
+import { useAtom } from 'jotai';
+import { zonesAtom } from './state';
 import { listZones } from './graphql/queries';
-import { type CreateZoneInput, type Zone } from './API';
 
 import { ThemeProvider } from '@mui/material/styles';
 import theme from './theme/theme.ts';
@@ -27,7 +28,7 @@ Amplify.configure(config);
 const client = generateClient();
 
 export default function App() {
-  const [zones, setZones] = useState<Zone[] | CreateZoneInput[]>([]);
+  const [zones, setZones] = useAtom(zonesAtom)
 
   useEffect(() => {
     fetchZones();
