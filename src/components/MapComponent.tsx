@@ -89,7 +89,7 @@ const MapComponent = ({ status, coordinates }: MapComponentProps) => {
                         maxzoom: 13
                     });
 
-                    map.setTerrain({source: 'mapbox-dem', exaggeration: 1.2 });
+                    map.setTerrain({source: 'mapbox-dem', exaggeration: 1.1 });
 
                     map.setFog({
                         'range': [0.5, 10],
@@ -108,7 +108,7 @@ const MapComponent = ({ status, coordinates }: MapComponentProps) => {
                     if (entry.isIntersecting && mapRef.current) {
                         mapRef.current.flyTo({
                             center: findCenter(coordinates),
-                            zoom: 14,
+                            zoom: 15,
                             bearing: 260,
                             pitch: 75,
                             duration: 8000,
