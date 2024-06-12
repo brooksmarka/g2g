@@ -3,8 +3,6 @@ import { Typography, Accordion, AccordionSummary, AccordionDetails, Chip, FormCo
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import MapComponent from './MapComponent';
 import { Trail } from '../API';
-import { useAtom } from 'jotai';
-import { coordinatesAtom, statusAtom } from '../state';
 
 interface TrailComponentProps {
   trail: Trail;
