@@ -43,7 +43,7 @@ const MapComponent = ({ status, coordinates }: MapComponentProps) => {
         if (!mapRef.current && mapContainerRef.current) {
             mapRef.current = new mapboxgl.Map({
                 container: mapContainerRef.current,
-                style: 'mapbox://styles/mapbox/satellite-streets-v12',
+                style: 'mapbox://styles/mapbox/outdoors-v12',
                 center: startingCenter,
                 zoom: 5,
             });

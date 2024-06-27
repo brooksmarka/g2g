@@ -21,6 +21,23 @@ This project uses several npm scripts to automate the development process, which
 - `npm run preview`: Locally preview production build
 - `npm run lint`: Lints the codebase.
 
+### Setting the Mode:
+You can run your Vite project with different modes using the '--mode flag:
+
+```bash
+# Development mode
+vite
+
+# Production Mode
+vite build
+
+# Staging mode
+vite --mode staging
+vite build --mode staging
+```
+
+You can also specifiy different .env files for development (.env) or production (.env.production)
+
 ### Continuous Integration
 
 The project is configured with Continuous Integration for automatic builds on push/merge events to specific branches.
