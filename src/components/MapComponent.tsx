@@ -43,7 +43,7 @@ const MapComponent = ({ status, coordinates }: MapComponentProps) => {
         if (!mapRef.current && mapContainerRef.current) {
             mapRef.current = new mapboxgl.Map({
                 container: mapContainerRef.current,
-                style: 'mapbox://styles/mapbox/outdoors-v12',
+                style: 'mapbox://styles/mapbox/satellite-streets-v12',
                 center: startingCenter,
                 zoom: 5,
             });
@@ -63,6 +63,16 @@ const MapComponent = ({ status, coordinates }: MapComponentProps) => {
 
                 // Add the source and line layer
                 if (map) {
+
+                    map.addControl(new mapboxgl.GeolocateControl({
+                        positionOptions: {
+                            enableHighAccuracy: true
+                        },
+                        trackUserLocation: true,
+                        showUserHeading: true,
+                        showAccuracyCircle: true,
+                    }))
+
                     map.addSource('route', {
                         type: 'geojson',
                         data: geojsonData
