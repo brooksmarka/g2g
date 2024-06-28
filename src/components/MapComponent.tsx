@@ -63,6 +63,16 @@ const MapComponent = ({ status, coordinates }: MapComponentProps) => {
 
                 // Add the source and line layer
                 if (map) {
+
+                    map.addControl(new mapboxgl.GeolocateControl({
+                        positionOptions: {
+                            enableHighAccuracy: true
+                        },
+                        trackUserLocation: true,
+                        showUserHeading: true,
+                        showAccuracyCircle: true,
+                    }))
+
                     map.addSource('route', {
                         type: 'geojson',
                         data: geojsonData
