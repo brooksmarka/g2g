@@ -4,8 +4,8 @@
 
 import * as APITypes from '../API'
 type GeneratedMutation<InputType, OutputType> = string & {
-	__generatedMutationInput: InputType
-	__generatedMutationOutput: OutputType
+  __generatedMutationInput: InputType
+  __generatedMutationOutput: OutputType
 }
 
 export const createZone = /* GraphQL */ `mutation CreateZone(
@@ -27,8 +27,8 @@ export const createZone = /* GraphQL */ `mutation CreateZone(
   }
 }
 ` as GeneratedMutation<
-	APITypes.CreateZoneMutationVariables,
-	APITypes.CreateZoneMutation
+  APITypes.CreateZoneMutationVariables,
+  APITypes.CreateZoneMutation
 >
 export const updateZone = /* GraphQL */ `mutation UpdateZone(
   $input: UpdateZoneInput!
@@ -49,8 +49,8 @@ export const updateZone = /* GraphQL */ `mutation UpdateZone(
   }
 }
 ` as GeneratedMutation<
-	APITypes.UpdateZoneMutationVariables,
-	APITypes.UpdateZoneMutation
+  APITypes.UpdateZoneMutationVariables,
+  APITypes.UpdateZoneMutation
 >
 export const deleteZone = /* GraphQL */ `mutation DeleteZone(
   $input: DeleteZoneInput!
@@ -71,8 +71,8 @@ export const deleteZone = /* GraphQL */ `mutation DeleteZone(
   }
 }
 ` as GeneratedMutation<
-	APITypes.DeleteZoneMutationVariables,
-	APITypes.DeleteZoneMutation
+  APITypes.DeleteZoneMutationVariables,
+  APITypes.DeleteZoneMutation
 >
 export const createTrail = /* GraphQL */ `mutation CreateTrail(
   $input: CreateTrailInput!
@@ -100,8 +100,8 @@ export const createTrail = /* GraphQL */ `mutation CreateTrail(
   }
 }
 ` as GeneratedMutation<
-	APITypes.CreateTrailMutationVariables,
-	APITypes.CreateTrailMutation
+  APITypes.CreateTrailMutationVariables,
+  APITypes.CreateTrailMutation
 >
 export const updateTrail = /* GraphQL */ `mutation UpdateTrail(
   $input: UpdateTrailInput!
@@ -129,8 +129,8 @@ export const updateTrail = /* GraphQL */ `mutation UpdateTrail(
   }
 }
 ` as GeneratedMutation<
-	APITypes.UpdateTrailMutationVariables,
-	APITypes.UpdateTrailMutation
+  APITypes.UpdateTrailMutationVariables,
+  APITypes.UpdateTrailMutation
 >
 export const deleteTrail = /* GraphQL */ `mutation DeleteTrail(
   $input: DeleteTrailInput!
@@ -158,6 +158,6 @@ export const deleteTrail = /* GraphQL */ `mutation DeleteTrail(
   }
 }
 ` as GeneratedMutation<
-	APITypes.DeleteTrailMutationVariables,
-	APITypes.DeleteTrailMutation
+  APITypes.DeleteTrailMutationVariables,
+  APITypes.DeleteTrailMutation
 >

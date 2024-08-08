@@ -4,12 +4,12 @@
 
 import * as APITypes from '../API'
 type GeneratedSubscription<InputType, OutputType> = string & {
-	__generatedSubscriptionInput: InputType
-	__generatedSubscriptionOutput: OutputType
+  __generatedSubscriptionInput: InputType
+  __generatedSubscriptionOutput: OutputType
 }
 
 export const onCreateZone =
-	/* GraphQL */ `subscription OnCreateZone($filter: ModelSubscriptionZoneFilterInput) {
+  /* GraphQL */ `subscription OnCreateZone($filter: ModelSubscriptionZoneFilterInput) {
   onCreateZone(filter: $filter) {
     id
     title
@@ -25,11 +25,11 @@ export const onCreateZone =
   }
 }
 ` as GeneratedSubscription<
-		APITypes.OnCreateZoneSubscriptionVariables,
-		APITypes.OnCreateZoneSubscription
-	>
+    APITypes.OnCreateZoneSubscriptionVariables,
+    APITypes.OnCreateZoneSubscription
+  >
 export const onUpdateZone =
-	/* GraphQL */ `subscription OnUpdateZone($filter: ModelSubscriptionZoneFilterInput) {
+  /* GraphQL */ `subscription OnUpdateZone($filter: ModelSubscriptionZoneFilterInput) {
   onUpdateZone(filter: $filter) {
     id
     title
@@ -45,11 +45,11 @@ export const onUpdateZone =
   }
 }
 ` as GeneratedSubscription<
-		APITypes.OnUpdateZoneSubscriptionVariables,
-		APITypes.OnUpdateZoneSubscription
-	>
+    APITypes.OnUpdateZoneSubscriptionVariables,
+    APITypes.OnUpdateZoneSubscription
+  >
 export const onDeleteZone =
-	/* GraphQL */ `subscription OnDeleteZone($filter: ModelSubscriptionZoneFilterInput) {
+  /* GraphQL */ `subscription OnDeleteZone($filter: ModelSubscriptionZoneFilterInput) {
   onDeleteZone(filter: $filter) {
     id
     title
@@ -65,11 +65,11 @@ export const onDeleteZone =
   }
 }
 ` as GeneratedSubscription<
-		APITypes.OnDeleteZoneSubscriptionVariables,
-		APITypes.OnDeleteZoneSubscription
-	>
+    APITypes.OnDeleteZoneSubscriptionVariables,
+    APITypes.OnDeleteZoneSubscription
+  >
 export const onCreateTrail =
-	/* GraphQL */ `subscription OnCreateTrail($filter: ModelSubscriptionTrailFilterInput) {
+  /* GraphQL */ `subscription OnCreateTrail($filter: ModelSubscriptionTrailFilterInput) {
   onCreateTrail(filter: $filter) {
     id
     zoneID
@@ -92,11 +92,11 @@ export const onCreateTrail =
   }
 }
 ` as GeneratedSubscription<
-		APITypes.OnCreateTrailSubscriptionVariables,
-		APITypes.OnCreateTrailSubscription
-	>
+    APITypes.OnCreateTrailSubscriptionVariables,
+    APITypes.OnCreateTrailSubscription
+  >
 export const onUpdateTrail =
-	/* GraphQL */ `subscription OnUpdateTrail($filter: ModelSubscriptionTrailFilterInput) {
+  /* GraphQL */ `subscription OnUpdateTrail($filter: ModelSubscriptionTrailFilterInput) {
   onUpdateTrail(filter: $filter) {
     id
     zoneID
@@ -119,11 +119,11 @@ export const onUpdateTrail =
   }
 }
 ` as GeneratedSubscription<
-		APITypes.OnUpdateTrailSubscriptionVariables,
-		APITypes.OnUpdateTrailSubscription
-	>
+    APITypes.OnUpdateTrailSubscriptionVariables,
+    APITypes.OnUpdateTrailSubscription
+  >
 export const onDeleteTrail =
-	/* GraphQL */ `subscription OnDeleteTrail($filter: ModelSubscriptionTrailFilterInput) {
+  /* GraphQL */ `subscription OnDeleteTrail($filter: ModelSubscriptionTrailFilterInput) {
   onDeleteTrail(filter: $filter) {
     id
     zoneID
@@ -146,6 +146,6 @@ export const onDeleteTrail =
   }
 }
 ` as GeneratedSubscription<
-		APITypes.OnDeleteTrailSubscriptionVariables,
-		APITypes.OnDeleteTrailSubscription
-	>
+    APITypes.OnDeleteTrailSubscriptionVariables,
+    APITypes.OnDeleteTrailSubscription
+  >

@@ -8,54 +8,54 @@ import * as React from 'react'
 import { GridProps, TextFieldProps } from '@aws-amplify/ui-react'
 import { Zone } from '../API.ts'
 export declare type EscapeHatchProps = {
-	[elementHierarchy: string]: Record<string, unknown>
+  [elementHierarchy: string]: Record<string, unknown>
 } | null
 export declare type VariantValues = {
-	[key: string]: string
+  [key: string]: string
 }
 export declare type Variant = {
-	variantValues: VariantValues
-	overrides: EscapeHatchProps
+  variantValues: VariantValues
+  overrides: EscapeHatchProps
 }
 export declare type ValidationResponse = {
-	hasError: boolean
-	errorMessage?: string
+  hasError: boolean
+  errorMessage?: string
 }
 export declare type ValidationFunction<T> = (
-	value: T,
-	validationResponse: ValidationResponse,
+  value: T,
+  validationResponse: ValidationResponse,
 ) => ValidationResponse | Promise<ValidationResponse>
 export declare type ZoneUpdateFormInputValues = {
-	title?: string
-	description?: string
-	imageKey?: string
+  title?: string
+  description?: string
+  imageKey?: string
 }
 export declare type ZoneUpdateFormValidationValues = {
-	title?: ValidationFunction<string>
-	description?: ValidationFunction<string>
-	imageKey?: ValidationFunction<string>
+  title?: ValidationFunction<string>
+  description?: ValidationFunction<string>
+  imageKey?: ValidationFunction<string>
 }
 export declare type PrimitiveOverrideProps<T> = Partial<T> &
-	React.DOMAttributes<HTMLDivElement>
+  React.DOMAttributes<HTMLDivElement>
 export declare type ZoneUpdateFormOverridesProps = {
-	ZoneUpdateFormGrid?: PrimitiveOverrideProps<GridProps>
-	title?: PrimitiveOverrideProps<TextFieldProps>
-	description?: PrimitiveOverrideProps<TextFieldProps>
-	imageKey?: PrimitiveOverrideProps<TextFieldProps>
+  ZoneUpdateFormGrid?: PrimitiveOverrideProps<GridProps>
+  title?: PrimitiveOverrideProps<TextFieldProps>
+  description?: PrimitiveOverrideProps<TextFieldProps>
+  imageKey?: PrimitiveOverrideProps<TextFieldProps>
 } & EscapeHatchProps
 export declare type ZoneUpdateFormProps = React.PropsWithChildren<
-	{
-		overrides?: ZoneUpdateFormOverridesProps | undefined | null
-	} & {
-		id?: string
-		zone?: Zone
-		onSubmit?: (fields: ZoneUpdateFormInputValues) => ZoneUpdateFormInputValues
-		onSuccess?: (fields: ZoneUpdateFormInputValues) => void
-		onError?: (fields: ZoneUpdateFormInputValues, errorMessage: string) => void
-		onChange?: (fields: ZoneUpdateFormInputValues) => ZoneUpdateFormInputValues
-		onValidate?: ZoneUpdateFormValidationValues
-	} & React.CSSProperties
+  {
+    overrides?: ZoneUpdateFormOverridesProps | undefined | null
+  } & {
+    id?: string
+    zone?: Zone
+    onSubmit?: (fields: ZoneUpdateFormInputValues) => ZoneUpdateFormInputValues
+    onSuccess?: (fields: ZoneUpdateFormInputValues) => void
+    onError?: (fields: ZoneUpdateFormInputValues, errorMessage: string) => void
+    onChange?: (fields: ZoneUpdateFormInputValues) => ZoneUpdateFormInputValues
+    onValidate?: ZoneUpdateFormValidationValues
+  } & React.CSSProperties
 >
 export default function ZoneUpdateForm(
-	props: ZoneUpdateFormProps,
+  props: ZoneUpdateFormProps,
 ): React.ReactElement

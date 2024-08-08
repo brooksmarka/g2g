@@ -1,26 +1,26 @@
 .amplify-button--primary {
-	background: #3c5c47 !important;
+  background: #3c5c47 !important;
 }
 
 .amplify-button--primary:hover {
-	background: gray !important;
+  background: gray !important;
 }
 
 .amplify-button--link {
-	color: #3c5c47 !important;
-	background-color: lightgray !important;
+  color: #3c5c47 !important;
+  background-color: lightgray !important;
 }
 
 .amplify-tabs__item {
-	color: #3c5c47 !important;
+  color: #3c5c47 !important;
 }
 
 .map {
-	height: 700px;
+  height: 700px;
 }
 
 @media (max-width: 750px) {
-	.map {
-		height: 220px;
-	}
+  .map {
+    height: 220px;
+  }
 }

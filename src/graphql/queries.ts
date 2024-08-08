@@ -4,8 +4,8 @@
 
 import * as APITypes from '../API'
 type GeneratedQuery<InputType, OutputType> = string & {
-	__generatedQueryInput: InputType
-	__generatedQueryOutput: OutputType
+  __generatedQueryInput: InputType
+  __generatedQueryOutput: OutputType
 }
 
 export const getZone = /* GraphQL */ `query GetZone($id: ID!) {
@@ -106,7 +106,7 @@ export const listTrails = /* GraphQL */ `query ListTrails(
 }
 ` as GeneratedQuery<APITypes.ListTrailsQueryVariables, APITypes.ListTrailsQuery>
 export const trailsByZoneIDAndTitle =
-	/* GraphQL */ `query TrailsByZoneIDAndTitle(
+  /* GraphQL */ `query TrailsByZoneIDAndTitle(
   $zoneID: ID!
   $title: ModelStringKeyConditionInput
   $sortDirection: ModelSortDirection
@@ -138,6 +138,6 @@ export const trailsByZoneIDAndTitle =
   }
 }
 ` as GeneratedQuery<
-		APITypes.TrailsByZoneIDAndTitleQueryVariables,
-		APITypes.TrailsByZoneIDAndTitleQuery
-	>
+    APITypes.TrailsByZoneIDAndTitleQueryVariables,
+    APITypes.TrailsByZoneIDAndTitleQuery
+  >
