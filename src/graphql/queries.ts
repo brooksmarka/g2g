@@ -2,11 +2,11 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
-import * as APITypes from "../API";
+import * as APITypes from '../API'
 type GeneratedQuery<InputType, OutputType> = string & {
-  __generatedQueryInput: InputType;
-  __generatedQueryOutput: OutputType;
-};
+	__generatedQueryInput: InputType
+	__generatedQueryOutput: OutputType
+}
 
 export const getZone = /* GraphQL */ `query GetZone($id: ID!) {
   getZone(id: $id) {
@@ -23,7 +23,7 @@ export const getZone = /* GraphQL */ `query GetZone($id: ID!) {
     __typename
   }
 }
-` as GeneratedQuery<APITypes.GetZoneQueryVariables, APITypes.GetZoneQuery>;
+` as GeneratedQuery<APITypes.GetZoneQueryVariables, APITypes.GetZoneQuery>
 export const listZones = /* GraphQL */ `query ListZones(
   $id: ID
   $filter: ModelZoneFilterInput
@@ -51,7 +51,7 @@ export const listZones = /* GraphQL */ `query ListZones(
     __typename
   }
 }
-` as GeneratedQuery<APITypes.ListZonesQueryVariables, APITypes.ListZonesQuery>;
+` as GeneratedQuery<APITypes.ListZonesQueryVariables, APITypes.ListZonesQuery>
 export const getTrail = /* GraphQL */ `query GetTrail($id: ID!) {
   getTrail(id: $id) {
     id
@@ -74,7 +74,7 @@ export const getTrail = /* GraphQL */ `query GetTrail($id: ID!) {
     __typename
   }
 }
-` as GeneratedQuery<APITypes.GetTrailQueryVariables, APITypes.GetTrailQuery>;
+` as GeneratedQuery<APITypes.GetTrailQueryVariables, APITypes.GetTrailQuery>
 export const listTrails = /* GraphQL */ `query ListTrails(
   $id: ID
   $filter: ModelTrailFilterInput
@@ -104,11 +104,9 @@ export const listTrails = /* GraphQL */ `query ListTrails(
     __typename
   }
 }
-` as GeneratedQuery<
-  APITypes.ListTrailsQueryVariables,
-  APITypes.ListTrailsQuery
->;
-export const trailsByZoneIDAndTitle = /* GraphQL */ `query TrailsByZoneIDAndTitle(
+` as GeneratedQuery<APITypes.ListTrailsQueryVariables, APITypes.ListTrailsQuery>
+export const trailsByZoneIDAndTitle =
+	/* GraphQL */ `query TrailsByZoneIDAndTitle(
   $zoneID: ID!
   $title: ModelStringKeyConditionInput
   $sortDirection: ModelSortDirection
@@ -140,6 +138,6 @@ export const trailsByZoneIDAndTitle = /* GraphQL */ `query TrailsByZoneIDAndTitl
   }
 }
 ` as GeneratedQuery<
-  APITypes.TrailsByZoneIDAndTitleQueryVariables,
-  APITypes.TrailsByZoneIDAndTitleQuery
->;
+		APITypes.TrailsByZoneIDAndTitleQueryVariables,
+		APITypes.TrailsByZoneIDAndTitleQuery
+	>
