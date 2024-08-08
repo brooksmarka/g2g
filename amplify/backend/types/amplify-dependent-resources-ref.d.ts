@@ -1,19 +1,19 @@
 export type AmplifyDependentResourcesAttributes = {
-  "api": {
-    "g2g": {
-      "GraphQLAPIEndpointOutput": "string",
-      "GraphQLAPIIdOutput": "string"
+  api: {
+    g2g: {
+      GraphQLAPIEndpointOutput: 'string'
+      GraphQLAPIIdOutput: 'string'
     }
-  },
-  "auth": {
-    "g2g2fddf947": {
-      "AppClientID": "string",
-      "AppClientIDWeb": "string",
-      "IdentityPoolId": "string",
-      "IdentityPoolName": "string",
-      "UserPoolArn": "string",
-      "UserPoolId": "string",
-      "UserPoolName": "string"
+  }
+  auth: {
+    g2g2fddf947: {
+      AppClientID: 'string'
+      AppClientIDWeb: 'string'
+      IdentityPoolId: 'string'
+      IdentityPoolName: 'string'
+      UserPoolArn: 'string'
+      UserPoolId: 'string'
+      UserPoolName: 'string'
     }
   }
 }

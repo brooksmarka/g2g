@@ -5,13 +5,13 @@
  **************************************************************************/
 
 /* eslint-disable */
-import * as React from "react";
-import { Button, Flex, Grid, TextField } from "@aws-amplify/ui-react";
-import { fetchByPath, getOverrideProps, validateField } from "./utils";
-import { generateClient } from "aws-amplify/api";
-import { getZone } from "../graphql/queries";
-import { updateZone } from "../graphql/mutations";
-const client = generateClient();
+import * as React from 'react'
+import { Button, Flex, Grid, TextField } from '@aws-amplify/ui-react'
+import { fetchByPath, getOverrideProps, validateField } from './utils'
+import { generateClient } from 'aws-amplify/api'
+import { getZone } from '../graphql/queries'
+import { updateZone } from '../graphql/mutations'
+const client = generateClient()
 export default function ZoneUpdateForm(props) {
   const {
     id: idProp,
@@ -23,236 +23,234 @@ export default function ZoneUpdateForm(props) {
     onChange,
     overrides,
     ...rest
-  } = props;
+  } = props
   const initialValues = {
-    title: "",
-    description: "",
-    imageKey: "",
-  };
-  const [title, setTitle] = React.useState(initialValues.title);
+    title: '',
+    description: '',
+    imageKey: '',
+  }
+  const [title, setTitle] = React.useState(initialValues.title)
   const [description, setDescription] = React.useState(
-    initialValues.description
-  );
-  const [imageKey, setImageKey] = React.useState(initialValues.imageKey);
-  const [errors, setErrors] = React.useState({});
+    initialValues.description,
+  )
+  const [imageKey, setImageKey] = React.useState(initialValues.imageKey)
+  const [errors, setErrors] = React.useState({})
   const resetStateValues = () => {
     const cleanValues = zoneRecord
       ? { ...initialValues, ...zoneRecord }
-      : initialValues;
-    setTitle(cleanValues.title);
-    setDescription(cleanValues.description);
-    setImageKey(cleanValues.imageKey);
-    setErrors({});
-  };
-  const [zoneRecord, setZoneRecord] = React.useState(zoneModelProp);
+      : initialValues
+    setTitle(cleanValues.title)
+    setDescription(cleanValues.description)
+    setImageKey(cleanValues.imageKey)
+    setErrors({})
+  }
+  const [zoneRecord, setZoneRecord] = React.useState(zoneModelProp)
   React.useEffect(() => {
     const queryData = async () => {
       const record = idProp
         ? (
             await client.graphql({
-              query: getZone.replaceAll("__typename", ""),
+              query: getZone.replaceAll('__typename', ''),
               variables: { id: idProp },
             })
           )?.data?.getZone
-        : zoneModelProp;
-      setZoneRecord(record);
-    };
-    queryData();
-  }, [idProp, zoneModelProp]);
-  React.useEffect(resetStateValues, [zoneRecord]);
+        : zoneModelProp
+      setZoneRecord(record)
+    }
+    queryData()
+  }, [idProp, zoneModelProp])
+  React.useEffect(resetStateValues, [zoneRecord])
   const validations = {
-    title: [{ type: "Required" }],
+    title: [{ type: 'Required' }],
     description: [],
     imageKey: [],
-  };
+  }
   const runValidationTasks = async (
     fieldName,
     currentValue,
-    getDisplayValue
+    getDisplayValue,
   ) => {
     const value =
       currentValue && getDisplayValue
         ? getDisplayValue(currentValue)
-        : currentValue;
-    let validationResponse = validateField(value, validations[fieldName]);
-    const customValidator = fetchByPath(onValidate, fieldName);
+        : currentValue
+    let validationResponse = validateField(value, validations[fieldName])
+    const customValidator = fetchByPath(onValidate, fieldName)
     if (customValidator) {
-      validationResponse = await customValidator(value, validationResponse);
+      validationResponse = await customValidator(value, validationResponse)
     }
-    setErrors((errors) => ({ ...errors, [fieldName]: validationResponse }));
-    return validationResponse;
-  };
+    setErrors(errors => ({ ...errors, [fieldName]: validationResponse }))
+    return validationResponse
+  }
   return (
     <Grid
-      as="form"
-      rowGap="15px"
-      columnGap="15px"
-      padding="20px"
-      onSubmit={async (event) => {
-        event.preventDefault();
+      as='form'
+      rowGap='15px'
+      columnGap='15px'
+      padding='20px'
+      onSubmit={async event => {
+        event.preventDefault()
         let modelFields = {
           title,
           description: description ?? null,
           imageKey: imageKey ?? null,
-        };
+        }
         const validationResponses = await Promise.all(
           Object.keys(validations).reduce((promises, fieldName) => {
             if (Array.isArray(modelFields[fieldName])) {
               promises.push(
-                ...modelFields[fieldName].map((item) =>
-                  runValidationTasks(fieldName, item)
-                )
-              );
-              return promises;
+                ...modelFields[fieldName].map(item =>
+                  runValidationTasks(fieldName, item),
+                ),
+              )
+              return promises
             }
-            promises.push(
-              runValidationTasks(fieldName, modelFields[fieldName])
-            );
-            return promises;
-          }, [])
-        );
-        if (validationResponses.some((r) => r.hasError)) {
-          return;
+            promises.push(runValidationTasks(fieldName, modelFields[fieldName]))
+            return promises
+          }, []),
+        )
+        if (validationResponses.some(r => r.hasError)) {
+          return
         }
         if (onSubmit) {
-          modelFields = onSubmit(modelFields);
+          modelFields = onSubmit(modelFields)
         }
         try {
           Object.entries(modelFields).forEach(([key, value]) => {
-            if (typeof value === "string" && value === "") {
-              modelFields[key] = null;
+            if (typeof value === 'string' && value === '') {
+              modelFields[key] = null
             }
-          });
+          })
           await client.graphql({
-            query: updateZone.replaceAll("__typename", ""),
+            query: updateZone.replaceAll('__typename', ''),
             variables: {
               input: {
                 id: zoneRecord.id,
                 ...modelFields,
               },
             },
-          });
+          })
           if (onSuccess) {
-            onSuccess(modelFields);
+            onSuccess(modelFields)
           }
         } catch (err) {
           if (onError) {
-            const messages = err.errors.map((e) => e.message).join("\n");
-            onError(modelFields, messages);
+            const messages = err.errors.map(e => e.message).join('\n')
+            onError(modelFields, messages)
           }
         }
       }}
-      {...getOverrideProps(overrides, "ZoneUpdateForm")}
+      {...getOverrideProps(overrides, 'ZoneUpdateForm')}
       {...rest}
     >
       <TextField
-        label="Title"
+        label='Title'
         isRequired={true}
         isReadOnly={false}
         value={title}
-        onChange={(e) => {
-          let { value } = e.target;
+        onChange={e => {
+          let { value } = e.target
           if (onChange) {
             const modelFields = {
               title: value,
               description,
               imageKey,
-            };
-            const result = onChange(modelFields);
-            value = result?.title ?? value;
+            }
+            const result = onChange(modelFields)
+            value = result?.title ?? value
           }
           if (errors.title?.hasError) {
-            runValidationTasks("title", value);
+            runValidationTasks('title', value)
           }
-          setTitle(value);
+          setTitle(value)
         }}
-        onBlur={() => runValidationTasks("title", title)}
+        onBlur={() => runValidationTasks('title', title)}
         errorMessage={errors.title?.errorMessage}
         hasError={errors.title?.hasError}
-        {...getOverrideProps(overrides, "title")}
+        {...getOverrideProps(overrides, 'title')}
       ></TextField>
       <TextField
-        label="Description"
+        label='Description'
         isRequired={false}
         isReadOnly={false}
         value={description}
-        onChange={(e) => {
-          let { value } = e.target;
+        onChange={e => {
+          let { value } = e.target
           if (onChange) {
             const modelFields = {
               title,
               description: value,
               imageKey,
-            };
-            const result = onChange(modelFields);
-            value = result?.description ?? value;
+            }
+            const result = onChange(modelFields)
+            value = result?.description ?? value
           }
           if (errors.description?.hasError) {
-            runValidationTasks("description", value);
+            runValidationTasks('description', value)
           }
-          setDescription(value);
+          setDescription(value)
         }}
-        onBlur={() => runValidationTasks("description", description)}
+        onBlur={() => runValidationTasks('description', description)}
         errorMessage={errors.description?.errorMessage}
         hasError={errors.description?.hasError}
-        {...getOverrideProps(overrides, "description")}
+        {...getOverrideProps(overrides, 'description')}
       ></TextField>
       <TextField
-        label="Image key"
+        label='Image key'
         isRequired={false}
         isReadOnly={false}
         value={imageKey}
-        onChange={(e) => {
-          let { value } = e.target;
+        onChange={e => {
+          let { value } = e.target
           if (onChange) {
             const modelFields = {
               title,
               description,
               imageKey: value,
-            };
-            const result = onChange(modelFields);
-            value = result?.imageKey ?? value;
+            }
+            const result = onChange(modelFields)
+            value = result?.imageKey ?? value
           }
           if (errors.imageKey?.hasError) {
-            runValidationTasks("imageKey", value);
+            runValidationTasks('imageKey', value)
           }
-          setImageKey(value);
+          setImageKey(value)
         }}
-        onBlur={() => runValidationTasks("imageKey", imageKey)}
+        onBlur={() => runValidationTasks('imageKey', imageKey)}
         errorMessage={errors.imageKey?.errorMessage}
         hasError={errors.imageKey?.hasError}
-        {...getOverrideProps(overrides, "imageKey")}
+        {...getOverrideProps(overrides, 'imageKey')}
       ></TextField>
       <Flex
-        justifyContent="space-between"
-        {...getOverrideProps(overrides, "CTAFlex")}
+        justifyContent='space-between'
+        {...getOverrideProps(overrides, 'CTAFlex')}
       >
         <Button
-          children="Reset"
-          type="reset"
-          onClick={(event) => {
-            event.preventDefault();
-            resetStateValues();
+          children='Reset'
+          type='reset'
+          onClick={event => {
+            event.preventDefault()
+            resetStateValues()
           }}
           isDisabled={!(idProp || zoneModelProp)}
-          {...getOverrideProps(overrides, "ResetButton")}
+          {...getOverrideProps(overrides, 'ResetButton')}
         ></Button>
         <Flex
-          gap="15px"
-          {...getOverrideProps(overrides, "RightAlignCTASubFlex")}
+          gap='15px'
+          {...getOverrideProps(overrides, 'RightAlignCTASubFlex')}
         >
           <Button
-            children="Submit"
-            type="submit"
-            variation="primary"
+            children='Submit'
+            type='submit'
+            variation='primary'
             isDisabled={
               !(idProp || zoneModelProp) ||
-              Object.values(errors).some((e) => e?.hasError)
+              Object.values(errors).some(e => e?.hasError)
             }
-            {...getOverrideProps(overrides, "SubmitButton")}
+            {...getOverrideProps(overrides, 'SubmitButton')}
           ></Button>
         </Flex>
       </Flex>
     </Grid>
-  );
+  )
 }

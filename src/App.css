@@ -19,7 +19,7 @@
   height: 700px;
 }
 
-@media (max-width: 750px){
+@media (max-width: 750px) {
   .map {
     height: 220px;
   }

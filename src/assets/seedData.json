@@ -1,9 +1,9 @@
 {
-    "data": {
-      "createTrail": {
-        "id": "5edb8cb0-c598-4b87-bbed-043904ba51d3",
-        "title": "Magic Mountain",
-        "zoneId": "78d3a10b-6454-4404-8674-b169252c2238"
-      }
+  "data": {
+    "createTrail": {
+      "id": "5edb8cb0-c598-4b87-bbed-043904ba51d3",
+      "title": "Magic Mountain",
+      "zoneId": "78d3a10b-6454-4404-8674-b169252c2238"
     }
   }
+}

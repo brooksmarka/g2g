@@ -1,4 +1,4 @@
-import { createTheme } from '@mui/material/styles';
+import { createTheme } from '@mui/material/styles'
 
 const theme = createTheme({
   palette: {
@@ -13,10 +13,10 @@ const theme = createTheme({
     },
     primary: {
       main: '#1f5d44',
-      light: '#4b8b6b', 
-      dark: '#123d2b', 
-      contrastText: '#fff', 
-    }
+      light: '#4b8b6b',
+      dark: '#123d2b',
+      contrastText: '#fff',
+    },
   },
   components: {
     MuiChip: {
@@ -25,11 +25,11 @@ const theme = createTheme({
           '&.MuiChip-color-lightGreen': {
             backgroundColor: '#eafaed',
             color: '#000',
-          }
-        }
-      }
-    }
-  }
-});
+          },
+        },
+      },
+    },
+  },
+})
 
-export default theme;
+export default theme

@@ -4,6 +4,6 @@
  * Any changes to this file will be overwritten when running amplify pull. *
  **************************************************************************/
 
-export { default as ZoneCreateForm } from "./ZoneCreateForm";
-export { default as ZoneUpdateForm } from "./ZoneUpdateForm";
-export { default as studioTheme } from "./studioTheme";
+export { default as ZoneCreateForm } from './ZoneCreateForm'
+export { default as ZoneUpdateForm } from './ZoneUpdateForm'
+export { default as studioTheme } from './studioTheme'
