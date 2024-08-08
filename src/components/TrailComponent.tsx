@@ -1,4 +1,5 @@
-import { useMemo } from 'react'
+import { Suspense, useMemo } from 'react'
+import React from 'react'
 import {
   Typography,
   Accordion,
@@ -12,8 +13,9 @@ import {
   Box,
 } from '@mui/material'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
-import MapComponent from './MapComponent'
 import { Trail } from '../API'
+
+const MapComponent = React.lazy(() => import ('./MapComponent'))
 
 interface TrailComponentProps {
   trail: Trail
@@ -84,10 +86,12 @@ const TrailComponent: React.FC<TrailComponentProps> = ({
             ))}
           </Select>
         </FormControl>
-        <MapComponent
-          status={trail.status}
-          coordinates={sanitizedCoordinates}
-        />
+				<Suspense fallback={<div>Loading...</div>}>
+					<MapComponent
+						status={trail.status}
+						coordinates={sanitizedCoordinates}
+					/>
+				</Suspense>
       </AccordionDetails>
     </Accordion>
   )
